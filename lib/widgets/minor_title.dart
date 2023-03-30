@@ -5,7 +5,7 @@ class MinorTitle extends StatelessWidget {
   double? size=14.0;
   final Color color;
   final FontWeight ?fontWeight;
-  final int ? maxline=1;
+  int ? maxline=1;
 
   MinorTitle({Key? key, required this.title, required this.color,this.size,this.fontWeight,this.maxline}) : super(key: key);
 
