@@ -1,9 +1,11 @@
 import 'package:digimhealth/screens/auth/components/textFields.dart';
 import 'package:digimhealth/screens/home/home.dart';
+import 'package:digimhealth/screens/profile/profile_setup.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controllers/authController.dart';
+import '../../widgets/back_button.dart';
 import '../../widgets/custom_button.dart';
 
 class Signup extends StatelessWidget {
@@ -17,14 +19,7 @@ class Signup extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            )),
+        leading:  backButton(icon: Icons.arrow_back),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -57,7 +52,7 @@ class Signup extends StatelessWidget {
             ),
             customButton(
                 callback: () {
-                  Get.to(() => Home());
+                  Get.to(() => ProfileSetup());
                 },
                 title: "Sign Up"),
           ],

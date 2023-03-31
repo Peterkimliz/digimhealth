@@ -1,4 +1,5 @@
 import 'package:digimhealth/bindings.dart';
+import 'package:digimhealth/controllers/appointment_controler.dart';
 import 'package:digimhealth/controllers/authController.dart';
 import 'package:digimhealth/screens/onboard/onboardScreen.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   AuthController authController = Get.put<AuthController>(AuthController());
+  AppointmentController appointmentController = Get.put<AppointmentController>(AppointmentController());
 
   MyApp({Key? key}) : super(key: key);
 

@@ -10,10 +10,12 @@ Widget customButton({required VoidCallback callback, required title}) {
       onTap: callback,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 15),
-        child: Text(
-          title,
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+          ),
         ),
       ),
     ),

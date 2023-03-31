@@ -4,6 +4,7 @@ import 'package:digimhealth/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/back_button.dart';
 import '../../widgets/custom_button.dart';
 
 class LoginPage extends StatelessWidget {
@@ -17,14 +18,7 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            )),
+        leading:  backButton(icon: Icons.arrow_back),
       ),
       body: SingleChildScrollView(
         child: Column(
