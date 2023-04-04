@@ -1,15 +1,19 @@
+import 'package:digimhealth/controllers/UserController.dart';
 import 'package:digimhealth/screens/home/home.dart';
 import 'package:digimhealth/utils/styles.dart';
+import 'package:digimhealth/widgets/major_title.dart';
 import 'package:digimhealth/widgets/minor_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../widgets/back_button.dart';
 import '../../widgets/custom_button.dart';
 
 class ProfileSetup extends StatelessWidget {
-  const ProfileSetup({Key? key}) : super(key: key);
+  ProfileSetup({Key? key}) : super(key: key);
+  UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -45,28 +49,17 @@ class ProfileSetup extends StatelessWidget {
                 child: Stack(
                   clipBehavior: Clip.antiAlias,
                   children: [
-                    Container(
-                      width: 150,
-                      height: 150,
-                      padding: EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey.withOpacity(0.4)),
-                      child: Center(
-                        child: Image.asset(
-                          "assets/images/profile.png",
-                          fit: BoxFit.cover,
-                        ),
+                    CircleAvatar(
+                      radius: 60,
+                      backgroundImage: AssetImage(
+                        "assets/images/profile.png",
                       ),
                     ),
                     Positioned(
-                      top: 150,
                       bottom: 0,
-                      child: Container(
-                        padding: EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Styles.mainColor),
+                      right: 0,
+                      child: CircleAvatar(
+                        backgroundColor: Styles.mainColor,
                         child: Center(
                           child: Icon(
                             Icons.camera_alt_outlined,
@@ -100,19 +93,39 @@ class ProfileSetup extends StatelessWidget {
                   ),
                   SizedBox(height: 5),
                   Container(
-                    padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
+                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    height: 50,
                     width: double.infinity,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: Colors.grey, width: 1)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        MinorTitle(title: "Select Gender", color: Colors.grey),
-                        Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.grey,
-                        )
+                        Obx(() {
+                          return MinorTitle(
+                              title: userController.gender.value == ""
+                                  ? "Select Gender"
+                                  : userController.gender.value,
+                              color: Colors.grey);
+                        }),
+                        PopupMenuButton(
+                          itemBuilder: (BuildContext context) {
+                            return userController.genders
+                                .map((e) => PopupMenuItem(
+                                    onTap: () {
+                                      userController.gender.value = e;
+                                    },
+                                    child: MinorTitle(
+                                        title: e, color: Colors.black)))
+                                .toList();
+                          },
+                          icon: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.grey,
+                          ),
+                        ),
                       ],
                     ),
                   )
@@ -147,7 +160,7 @@ class ProfileSetup extends StatelessWidget {
                           maxTime: DateTime.now(), onChanged: (date) {
                         print('change $date');
                       }, onConfirm: (date) {
-                        print('confirm $date');
+                        userController.dob.value = date;
                       }, currentTime: DateTime.now(), locale: LocaleType.en);
                     },
                     child: Container(
@@ -159,9 +172,13 @@ class ProfileSetup extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          MinorTitle(
-                              title: "Select date of birth",
-                              color: Colors.grey),
+                          Obx(() {
+                            return MinorTitle(
+                                title: userController.dob.value == ""
+                                    ? "Select date of birth"
+                                    : "${DateFormat("dd/MM/yyyy").format(userController.dob.value)}",
+                                color: Colors.grey);
+                          }),
                           Icon(
                             Icons.arrow_drop_down,
                             color: Colors.grey,
@@ -193,26 +210,37 @@ class ProfileSetup extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 5),
-                  InkWell(
-                    onTap: () {
-                      print("object");
-                    },
-                    child: Container(
-                      padding: EdgeInsets.fromLTRB(5, 10, 10, 10),
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.grey, width: 1)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MinorTitle(title: "Select age", color: Colors.grey),
-                          Icon(
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Colors.grey, width: 1)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(() => MinorTitle(
+                            title: userController.age.value == ""
+                                ? "Select age"
+                                : userController.age.value,
+                            color: Colors.grey)),
+                        PopupMenuButton(
+                          itemBuilder: (BuildContext context) {
+                            return userController.ageRnge
+                                .map((e) => PopupMenuItem(
+                                    onTap: () {
+                                      userController.age.value=e;
+                                    },
+                                    child: MinorTitle(
+                                        title: e, color: Colors.black)))
+                                .toList();
+                          },
+                          icon: Icon(
                             Icons.arrow_drop_down,
                             color: Colors.grey,
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 ],
