@@ -25,6 +25,7 @@ class UserController extends GetxController {
   ];
 
   TextEditingController textEditingControllername = TextEditingController();
+  TextEditingController textEditingControlleremail = TextEditingController();
   TextEditingController textEditingControllerphone = TextEditingController();
   TextEditingController textEditingControllerGender = TextEditingController();
   TextEditingController textEditingControllerDob = TextEditingController();

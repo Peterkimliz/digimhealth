@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../../widgets/major_title.dart';
 import '../../widgets/minor_title.dart';
+import 'help_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -87,7 +88,9 @@ class ProfilePage extends StatelessWidget {
                     title: "Help",
                     icon: Icons.help,
                     color: Colors.deepPurpleAccent,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Get.to(() => HelpPage());
+                    }),
                 profileItems(
                     title: "Log out",
                     icon: Icons.logout,
