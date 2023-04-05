@@ -75,8 +75,6 @@ class ProfileDetails extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 30),
-              MajorTitle(title: "Personal Details", color: Colors.black),
-              SizedBox(height: 10),
               profileTextEditing(
                 visible: false,
                   textEditingController:

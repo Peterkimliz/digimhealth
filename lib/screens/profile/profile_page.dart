@@ -1,3 +1,4 @@
+import 'package:digimhealth/screens/doctor/favourite_page.dart';
 import 'package:digimhealth/screens/profile/profile_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,7 +69,9 @@ class ProfilePage extends StatelessWidget {
                     title: "Favourite doctors",
                     icon: Icons.favorite,
                     color: Colors.green,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Get.to(() => FavouritePage());
+                    }),
                 profileItems(
                     title: "About Us",
                     icon: Icons.info,
