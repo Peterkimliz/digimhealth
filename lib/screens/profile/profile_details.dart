@@ -1,12 +1,20 @@
+import 'package:digimhealth/controllers/UserController.dart';
+import 'package:digimhealth/screens/profile/edit_profile.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:digimhealth/widgets/back_button.dart';
 import 'package:digimhealth/widgets/major_title.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../widgets/minor_title.dart';
+import 'components/profile_texteditting.dart';
 
 class ProfileDetails extends StatelessWidget {
-  const ProfileDetails({Key? key}) : super(key: key);
+  ProfileDetails({Key? key}) : super(key: key) {
+    userController.initializeTextEditingControllers();
+  }
+
+  UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +24,9 @@ class ProfileDetails extends StatelessWidget {
         title: MajorTitle(title: "Profile", color: Colors.black),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => EditProfile());
+              },
               icon: Icon(
                 Icons.edit,
                 color: Styles.mainColor,
@@ -65,15 +75,31 @@ class ProfileDetails extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 30),
-              MajorTitle(title: "Pesonal Details", color: Colors.black),
+              MajorTitle(title: "Personal Details", color: Colors.black),
               SizedBox(height: 10),
-              textFields(),
+              profileTextEditing(
+                visible: false,
+                  textEditingController:
+                      userController.textEditingControllername,
+                  label: "FullName"),
               SizedBox(height: 10),
-              textFields(),
+              profileTextEditing(
+                  visible: false,
+                  textEditingController:
+                      userController.textEditingControllerphone,
+                  label: "Phone"),
               SizedBox(height: 10),
-              textFields(),
+              profileTextEditing(
+                  visible: false,
+                  textEditingController:
+                      userController.textEditingControllerage,
+                  label: "Age"),
               SizedBox(height: 10),
-              textFields()
+              profileTextEditing(
+                  visible: false,
+                  textEditingController:
+                      userController.textEditingControllerGender,
+                  label: "Gender")
             ],
           ),
         ),
@@ -81,24 +107,5 @@ class ProfileDetails extends StatelessWidget {
     );
   }
 
-  Widget textFields() {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
-      child: TextFormField(
-        enabled: false,
-        decoration: InputDecoration(
-            hintText: "Peter",
-            labelText: "Full Name",
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey, width: 1),
-            ),
-            labelStyle: TextStyle(color: Colors.black),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: BorderSide(color: Colors.grey, width: 1),
-            )),
-      ),
-    );
-  }
+
 }
