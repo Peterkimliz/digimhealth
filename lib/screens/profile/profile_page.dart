@@ -1,4 +1,6 @@
 import 'package:digimhealth/screens/doctor/favourite_page.dart';
+import 'package:digimhealth/screens/profile/about_page.dart';
+import 'package:digimhealth/screens/profile/components/faqs_page.dart';
 import 'package:digimhealth/screens/profile/profile_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -77,15 +79,19 @@ class ProfilePage extends StatelessWidget {
                     title: "About Us",
                     icon: Icons.info,
                     color: Colors.deepOrangeAccent,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Get.to(() => AboutPage());
+                    }),
                 SizedBox(height: 10),
                 profileItems(
                     title: "FAQS",
                     icon: Icons.question_answer,
                     color: Colors.blueAccent,
-                    onPressed: () {}),
+                    onPressed: () {
+                      Get.to(() => FaqsPage());
+                    }),
                 profileItems(
-                    title: "Help",
+                    title: "Help Center",
                     icon: Icons.help,
                     color: Colors.deepPurpleAccent,
                     onPressed: () {
