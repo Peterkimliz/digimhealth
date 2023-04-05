@@ -45,7 +45,7 @@ class ProfileSetup extends StatelessWidget {
                 maxline: 2,
               ),
               SizedBox(height: 15),
-              profileImage(),
+              profileImage(context),
               SizedBox(height: 15),
               profileSelectWidget(context),
             ],

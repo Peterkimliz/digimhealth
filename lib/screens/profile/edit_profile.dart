@@ -36,7 +36,7 @@ class EditProfile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: 20),
-              profileImage(),
+              profileImage(context),
               SizedBox(height: 10),
               profileTextEditing(
                   visible: true,
