@@ -1,4 +1,8 @@
+import 'package:digimhealth/utils/styles.dart';
+import 'package:digimhealth/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 
 import '../../widgets/back_button.dart';
 import '../../widgets/major_title.dart';
@@ -40,10 +44,54 @@ class DoctorReview extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              SizedBox(
-                height: 10,
+              RatingBar.builder(
+                initialRating: 1,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => Icon(
+                  Icons.star,
+                  color: Styles.mainColor,
+                ),
+                onRatingUpdate: (rating) {
+                  print(rating);
+                },
               ),
-              Divider(thickness: 0.5,color: Colors.grey)
+              SizedBox(height: 10),
+              MajorTitle(
+                title: "Write a Review",
+                color: Colors.black,
+                size: 15,
+              ),
+              SizedBox(height: 10),
+              TextFormField(
+                minLines: 8,
+                maxLines: 8,
+                decoration: InputDecoration(
+                  hintText: "Your review here...",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      10,
+                    ),
+                    borderSide: BorderSide(color: Styles.mainColor, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      10,
+                    ),
+                    borderSide: BorderSide(color: Styles.mainColor, width: 1),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20),
+              customButton(
+                  callback: () {
+                    Get.back();
+                  },
+                  title: "Leave a Review"),
+              SizedBox(height: 20),
             ],
           ),
         ),
