@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../utils/styles.dart';
 
-Widget customButton({required VoidCallback callback, required title}) {
+Widget customButton({required VoidCallback callback, required title,Color? color,Color ?textColor}) {
   return Material(
-    color: Styles.mainColor,
-    borderRadius: BorderRadius.circular(10),
+    color:color!=null ?color:Styles.mainColor,
+    borderRadius: BorderRadius.circular(20),
     child: InkWell(
       onTap: callback,
       child: Padding(
@@ -14,7 +14,7 @@ Widget customButton({required VoidCallback callback, required title}) {
           child: Text(
             title,
             style: TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
+                color: textColor!=null?textColor:Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
           ),
         ),
       ),

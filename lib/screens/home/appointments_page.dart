@@ -1,4 +1,6 @@
 import 'package:digimhealth/controllers/appointment_controler.dart';
+import 'package:digimhealth/screens/appointments/reshedule_cancel_appointment.dart';
+import 'package:digimhealth/screens/doctor/doctor_review.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:digimhealth/widgets/back_button.dart';
 import 'package:digimhealth/widgets/major_title.dart';
@@ -38,7 +40,8 @@ class AppointmentsPage extends StatelessWidget {
               onTap: (value) {},
               tabs: [
                 Tab(text: "Upcoming"),
-                Tab(text: "Previous"),
+                Tab(text: "Completed"),
+                Tab(text: "Cancelled"),
               ],
             ),
           ),
@@ -47,8 +50,15 @@ class AppointmentsPage extends StatelessWidget {
             controller: appointmentController.tabController,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              Apointments(),
-              Apointments(),
+              Apointments(
+                type: "Upcoming",
+              ),
+              Apointments(
+                type: "Completed",
+              ),
+              Apointments(
+                type: "Cancelled",
+              ),
             ],
           ))
         ],
@@ -58,7 +68,9 @@ class AppointmentsPage extends StatelessWidget {
 }
 
 class Apointments extends StatelessWidget {
-  const Apointments({Key? key}) : super(key: key);
+  final type;
+
+  const Apointments({Key? key, required this.type}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +101,8 @@ class Apointments extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          height: 50,
-                          width: 50,
+                          height: 60,
+                          width: 60,
                           margin: EdgeInsets.only(right: 5),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -111,14 +123,48 @@ class Apointments extends StatelessWidget {
                               height: 2,
                             ),
                             MinorTitle(title: "Neurology", color: Colors.grey),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: [
+                                MinorTitle(
+                                  title: "Video",
+                                  color: Colors.grey,
+                                  size: 14,
+                                ),
+                                SizedBox(width: 3),
+                                Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 3),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
+                                          width: 1, color: Styles.mainColor)),
+                                  child: MinorTitle(
+                                    title: type,
+                                    color: Styles.mainColor,
+                                    size: 14,
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
                         ),
                       ],
                     ),
-                    Icon(
-                      Icons.more_vert,
-                      color: Colors.black,
-                    )
+                    if (type.toString().toLowerCase() != "cancelled")
+                      InkWell(
+                        onTap: () {
+                          showOperationsBottomSheet(
+                              type: type, context: context);
+                        },
+                        child: Icon(
+                          Icons.more_vert,
+                          color: Colors.black,
+                        ),
+                      )
                   ],
                 ),
                 SizedBox(
@@ -130,28 +176,145 @@ class Apointments extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.calendar_today_outlined,size: 15,),
+                        Icon(
+                          Icons.calendar_today_outlined,
+                          size: 15,
+                        ),
                         SizedBox(width: 3),
-                        MinorTitle(title: "${DateFormat("dd MMM yyyy").format(DateTime.now())}", color: Colors.grey,size: 14,),
+                        MinorTitle(
+                          title:
+                              "${DateFormat("dd MMM yyyy").format(DateTime.now())}",
+                          color: Colors.grey,
+                          size: 14,
+                        ),
                       ],
-                    ),Row(
+                    ),
+                    Row(
                       children: [
-                        Icon(Icons.watch_later_outlined,size: 15,),
+                        Icon(
+                          Icons.watch_later_outlined,
+                          size: 15,
+                        ),
                         SizedBox(width: 3),
-                        MinorTitle(title: "${DateFormat("hh:mm a").format(DateTime.now())}-${DateFormat("hh:mm a").format(DateTime.now())}", color: Colors.grey,size: 14,),
+                        MinorTitle(
+                          title:
+                              "${DateFormat("hh:mm a").format(DateTime.now())}-${DateFormat("hh:mm a").format(DateTime.now())}",
+                          color: Colors.grey,
+                          size: 14,
+                        ),
                       ],
-                    ),Row(
-                      children: [
-                        Icon(Icons.video_call,size: 15,),
-                        SizedBox(width: 3),
-                        MinorTitle(title: "Video", color: Colors.grey,size: 14,),
-                      ],
-                    )
+                    ),
                   ],
                 )
               ],
             ),
           );
+        });
+  }
+
+  showOperationsBottomSheet({required type, required BuildContext context}) {
+    return showModalBottomSheet(
+        isScrollControlled: true,
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
+        ),
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return DraggableScrollableSheet(
+                initialChildSize: 0.35,
+                expand: false,
+                builder:
+                    (BuildContext context, ScrollController scrollController) {
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Center(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.008,
+                            width: MediaQuery.of(context).size.width * 0.2,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        if (type.toString().toLowerCase() == "upcoming")
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                onTap: () {
+                                  Get.back();
+                                  Get.to(() => ResheduleCancelAppointment(
+                                      title: "Reshedule"));
+                                },
+                                leading: Icon(
+                                  Icons.settings,
+                                  color: Colors.black,
+                                ),
+                                title: MinorTitle(
+                                    title: "Reshedule", color: Colors.grey),
+                              ),
+                              ListTile(
+                                onTap: () {
+                                  Get.back();
+                                  Get.to(() => ResheduleCancelAppointment(
+                                      title: "Cancel"));
+                                },
+                                leading: Icon(
+                                  Icons.location_on,
+                                  color: Colors.black,
+                                ),
+                                title: MinorTitle(
+                                    title: "Cancel Appointment",
+                                    color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                        if (type.toString().toLowerCase() == "completed")
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                leading: Icon(
+                                  Icons.bookmark,
+                                  color: Colors.black,
+                                ),
+                                title: MinorTitle(
+                                    title: "Book again", color: Colors.grey),
+                              ),
+                              ListTile(
+                                onTap: () {
+                                  Get.back();
+                                  Get.to(() => DoctorReview());
+                                },
+                                leading: Icon(
+                                  Icons.reviews_rounded,
+                                  color: Colors.black,
+                                ),
+                                title: MinorTitle(
+                                    title: "Leave a review",
+                                    color: Colors.grey),
+                              ),
+                            ],
+                          )
+                      ],
+                    ),
+                  );
+                });
+          });
         });
   }
 }

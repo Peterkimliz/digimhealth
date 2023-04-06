@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:digimhealth/controllers/appointment_controler.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:flutter/material.dart';
@@ -59,8 +60,23 @@ class BookAppointment extends StatelessWidget {
                           ))),
                 ],
               ),
-              SizedBox(height: 20,),
-              MajorTitle(title: "Select Hour", color: Colors.black,size: 17,),
+              SizedBox(
+                height: 20,
+              ),
+              MajorTitle(
+                title: "Select Hour",
+                color: Colors.black,
+                size: 17,
+              ),
+              CalendarDatePicker2(
+                config: CalendarDatePicker2Config(
+                  calendarType: CalendarDatePicker2Type.single,
+                ),
+                value: [DateTime.now()],
+                onValueChanged: (dates) {
+                  // _dates = dates
+                },
+              )
             ],
           ),
         ),
