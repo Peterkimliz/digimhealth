@@ -77,9 +77,7 @@ class ChatPage extends StatelessWidget {
                                 size: 14)
                           ],
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
+                        Spacer(),
                         MinorTitle(title: "2d ago", color: Colors.grey)
                       ],
                     ),

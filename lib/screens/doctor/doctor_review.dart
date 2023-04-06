@@ -60,6 +60,8 @@ class DoctorReview extends StatelessWidget {
                 },
               ),
               SizedBox(height: 10),
+              Divider(thickness: 0.5, color: Colors.grey),
+              SizedBox(height: 10),
               MajorTitle(
                 title: "Write a Review",
                 color: Colors.black,
@@ -85,13 +87,12 @@ class DoctorReview extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
               customButton(
                   callback: () {
                     Get.back();
                   },
-                  title: "Leave a Review"),
-              SizedBox(height: 20),
+                  title: "Leave a Review")
             ],
           ),
         ),

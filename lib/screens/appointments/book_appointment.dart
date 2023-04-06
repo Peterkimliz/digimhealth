@@ -1,9 +1,11 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:digimhealth/controllers/appointment_controler.dart';
 import 'package:digimhealth/utils/styles.dart';
+import 'package:digimhealth/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../utils/functions.dart';
 import '../../widgets/back_button.dart';
 import '../../widgets/major_title.dart';
 
@@ -14,6 +16,9 @@ class BookAppointment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List hours = createTimeSlot(Duration(hours: 8, minutes: 30),
+        Duration(hours: 18, minutes: 30), context);
+    print(hours.toList());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -28,55 +33,78 @@ class BookAppointment extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  Expanded(
-                      child: Obx(() => InkWell(
-                          onTap: () {
-                            appointmentController
-                                .selectedAppointmentType.value = 0;
-                          },
-                          child: selectionWidget(
-                              title: "Online",
-                              isSelected: appointmentController
-                                          .selectedAppointmentType.value ==
-                                      0
-                                  ? true
-                                  : false)))),
-                  SizedBox(width: 10),
-                  Expanded(
-                      child: Obx(() => InkWell(
-                            onTap: () {
-                              appointmentController
-                                  .selectedAppointmentType.value = 1;
-                            },
-                            child: selectionWidget(
-                                title: "Physical",
-                                isSelected: appointmentController
-                                            .selectedAppointmentType.value ==
-                                        1
-                                    ? true
-                                    : false),
-                          ))),
-                ],
+              SizedBox(
+                height: 10,
+              ),
+              MajorTitle(
+                title: "Select Date",
+                color: Colors.black,
+                size: 17,
               ),
               SizedBox(
-                height: 20,
+                height: 10,
+              ),
+              Container(
+                decoration: BoxDecoration(
+                    color: Styles.mainColor.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(10)),
+                child: CalendarDatePicker2(
+                  config: CalendarDatePicker2Config(
+                    selectedDayHighlightColor: Styles.mainColor,
+                    calendarType: CalendarDatePicker2Type.single,
+                  ),
+                  value: [DateTime.now()],
+                  onValueChanged: (dates) {
+                    // _dates = dates
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               MajorTitle(
                 title: "Select Hour",
                 color: Colors.black,
                 size: 17,
               ),
-              CalendarDatePicker2(
-                config: CalendarDatePicker2Config(
-                  calendarType: CalendarDatePicker2Type.single,
-                ),
-                value: [DateTime.now()],
-                onValueChanged: (dates) {
-                  // _dates = dates
-                },
-              )
+              SizedBox(
+                height: 10,
+              ),
+              Wrap(
+                runSpacing: 6.0,
+                spacing: 6.0,
+                children: createTimeSlot(Duration(hours: 8, minutes: 30),
+                        Duration(hours: 18, minutes: 30), context)
+                    .map((e) => Obx(() => InkWell(
+                          onTap: () {
+                            appointmentController.selectedHour.value = e;
+                          },
+                          child: Chip(
+                              backgroundColor:
+                                  appointmentController.selectedHour.value == e
+                                      ? Styles.mainColor
+                                      : Colors.white,
+                              shape: StadiumBorder(
+                                  side: BorderSide(
+                                width: 1,
+                                color: Styles.mainColor,
+                              )),
+                              label: Text(
+                                e,
+                                style: TextStyle(
+                                    color: appointmentController
+                                                .selectedHour.value ==
+                                            e
+                                        ? Colors.white
+                                        : Styles.mainColor),
+                              )),
+                        )))
+                    .toList(),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              customButton(callback: () {}, title: "Next")
             ],
           ),
         ),

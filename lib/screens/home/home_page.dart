@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(height: 10),
                 Container(
-                  height: MediaQuery.of(context).size.height * 0.13,
+                  height: MediaQuery.of(context).size.height * 0.09,
                   child: ListView.builder(
                       itemCount: specialist.length,
                       shrinkWrap: true,
@@ -101,8 +101,7 @@ class HomePage extends StatelessWidget {
                             Get.to(() => AllDoctors());
                           },
                           child: Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            padding: EdgeInsets.fromLTRB(10, 5, 5, 5),
+                            padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
                             margin:
                                 EdgeInsets.only(right: 10, top: 10, bottom: 10),
                             decoration: BoxDecoration(
@@ -114,24 +113,12 @@ class HomePage extends StatelessWidget {
                                       offset: Offset(1, 1),
                                       color: Colors.grey)
                                 ]),
-                            child: Column(
-                              // crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                MajorTitle(
-                                  title: specialist[index],
-                                  color: Colors.black,
-                                  size: 16,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                MinorTitle(
-                                    title: "200 doctors", color: Colors.grey),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                              ],
+                            child: Center(
+                              child: MinorTitle(
+                                title: specialist[index],
+                                color: Colors.black,
+                                size: 16,
+                              ),
                             ),
                           ),
                         );

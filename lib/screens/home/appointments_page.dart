@@ -101,8 +101,8 @@ class Apointments extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          height: 60,
-                          width: 60,
+                          height: 80,
+                          width: 80,
                           margin: EdgeInsets.only(right: 5),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -111,6 +111,7 @@ class Apointments extends StatelessWidget {
                                       AssetImage("assets/images/doctor4.jpg"),
                                   fit: BoxFit.cover)),
                         ),
+                        SizedBox(width: 5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -172,7 +173,6 @@ class Apointments extends StatelessWidget {
                 ),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Row(
                       children: [
@@ -188,6 +188,9 @@ class Apointments extends StatelessWidget {
                           size: 14,
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      width: 30,
                     ),
                     Row(
                       children: [

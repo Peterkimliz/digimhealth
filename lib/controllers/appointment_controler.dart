@@ -8,6 +8,7 @@ class AppointmentController extends GetxController
   RxInt selectedAppointmentType=RxInt(0);
   RxString cancelValue=RxString("");
   RxString resheduleValue=RxString("");
+  RxString selectedHour=RxString("");
 
 
   @override
