@@ -1,3 +1,4 @@
+import 'package:digimhealth/screens/appointments/payment_page.dart';
 import 'package:digimhealth/widgets/back_button.dart';
 import 'package:digimhealth/widgets/major_title.dart';
 import 'package:digimhealth/widgets/minor_title.dart';
@@ -155,7 +156,7 @@ class Packages extends StatelessWidget {
            SizedBox(height: 50,),
             customButton(
                 callback: () {
-                  // Get.to(() => Packages());
+                  Get.to(() => PaymentPage());
                 },
                 title: "Next"),
 
