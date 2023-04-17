@@ -5,6 +5,7 @@ import '../../../widgets/minor_title.dart';
 
 Widget reviewsCard(){
   return  Container(
+    margin: EdgeInsets.only(bottom: 5),
     padding: EdgeInsets.all(3),
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,

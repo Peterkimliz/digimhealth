@@ -1,5 +1,6 @@
 import 'package:digimhealth/screens/doctor/components/doctor_card.dart';
 import 'package:digimhealth/screens/doctor/components/reviews_card.dart';
+import 'package:digimhealth/screens/doctor/reviews_page.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -98,15 +99,20 @@ class DoctorProfile extends StatelessWidget {
                     color: Colors.black,
                     size: 18,
                   ),
-                  MajorTitle(
-                    title: "See All",
-                    color: Styles.mainColor,
-                    size: 18,
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => ReviewsPage());
+                    },
+                    child: MajorTitle(
+                      title: "See All",
+                      color: Styles.mainColor,
+                      size: 18,
+                    ),
                   ),
                 ],
               ),
               SizedBox(height: 15),
-             reviewsCard(),
+              reviewsCard(),
             ],
           ),
         ),
