@@ -38,7 +38,7 @@ class DoctorProfile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              doctorCard(),
+              doctorCard(isVisible: false),
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -51,7 +51,7 @@ class DoctorProfile extends StatelessWidget {
                         subtitle: "Patients"),
                     profileItems(
                         title: "10+",
-                        icon: Icons.work_history,
+                        icon: Icons.work,
                         subtitle: "Years.."),
                     profileItems(
                         title: "4.8", icon: Icons.star, subtitle: "Rating"),

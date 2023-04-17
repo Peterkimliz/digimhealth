@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../widgets/major_title.dart';
 import '../../../widgets/minor_title.dart';
 
-Widget doctorCard() {
+Widget doctorCard({bool? isVisible=true}) {
   return Row(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -33,10 +33,12 @@ Widget doctorCard() {
             SizedBox(
               height: 15,
             ),
-            Row(
+            if (isVisible!)
+              Row(
               children: [
                 Icon(Icons.star, color: Colors.yellow, size: 18),
                 SizedBox(width: 5),
+
                 Row(
                   children: [
                     MinorTitle(title: "4.8", color: Colors.black),
@@ -46,6 +48,8 @@ Widget doctorCard() {
                 ),
               ],
             ),
+            if (!isVisible)
+              MinorTitle(title: "St Luis ,United States", color: Colors.black),
           ],
         ),
       ),
