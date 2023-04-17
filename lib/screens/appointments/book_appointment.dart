@@ -1,5 +1,6 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:digimhealth/controllers/appointment_controler.dart';
+import 'package:digimhealth/screens/appointments/packages_page.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:digimhealth/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,11 @@ class BookAppointment extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              customButton(callback: () {}, title: "Next")
+              customButton(
+                  callback: () {
+                    Get.to(() => Packages());
+                  },
+                  title: "Next")
             ],
           ),
         ),
