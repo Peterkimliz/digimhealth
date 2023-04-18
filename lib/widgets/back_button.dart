@@ -16,12 +16,13 @@ Widget commonWidget({required IconData icon,required onPressed,Color ?color}){
           borderRadius: BorderRadius.circular(10),
           border:
           Border.all(width: 1, color: Colors.grey.withOpacity(0.2)),
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 1,
-                offset: Offset(1, 1),
-                color: Colors.grey)
-          ]),
+          // boxShadow: [
+          //   BoxShadow(
+          //       blurRadius: 1,
+          //       offset: Offset(1, 1),
+          //       color: Colors.grey)
+          // ],
+      ),
       child: Center(
         child: Icon(
           icon,

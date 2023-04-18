@@ -20,6 +20,13 @@ class DoctorProfile extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.more_vert,color: Colors.black,),
+              itemBuilder: (context) {
+            return [PopupMenuItem(child: Container())];
+          })
+        ],
         elevation: 0.2,
         title: MajorTitle(title: "Doctor", color: Colors.black),
         backgroundColor: Colors.white,
@@ -50,9 +57,7 @@ class DoctorProfile extends StatelessWidget {
                         icon: Icons.people,
                         subtitle: "Patients"),
                     profileItems(
-                        title: "10+",
-                        icon: Icons.work,
-                        subtitle: "Years.."),
+                        title: "10+", icon: Icons.work, subtitle: "Years.."),
                     profileItems(
                         title: "4.8", icon: Icons.star, subtitle: "Rating"),
                     profileItems(
