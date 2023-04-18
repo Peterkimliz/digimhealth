@@ -15,6 +15,7 @@ class MajorTitle extends StatelessWidget {
         color: color,
         fontWeight: FontWeight.bold,
         fontSize: size,
+        fontFamily: "RobotoRegular",
         overflow: TextOverflow.ellipsis,
 
       ),

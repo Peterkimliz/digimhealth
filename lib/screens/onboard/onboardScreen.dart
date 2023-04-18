@@ -3,6 +3,7 @@ import 'package:digimhealth/screens/auth/sign-up.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_one.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_three.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_two.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,7 @@ class OnboardScreen extends StatefulWidget {
 
 class _OnboardScreenState extends State<OnboardScreen> {
   late PageController pageController;
+  int pageNumber = 0;
   List<Widget> data = [
     OnboardScreenOne(),
     OnboardScreenTwo(),
@@ -45,6 +47,12 @@ class _OnboardScreenState extends State<OnboardScreen> {
           children: [
             Expanded(
               child: PageView.builder(
+                onPageChanged: (value) {
+                  setState(() {
+                    pageNumber = value;
+                  });
+                  print(pageNumber);
+                },
                 controller: pageController,
                 itemCount: data.length,
                 itemBuilder: (context, index) {
@@ -54,9 +62,20 @@ class _OnboardScreenState extends State<OnboardScreen> {
             ),
             Container(
               color: Styles.mainColor,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5)
+                  .copyWith(bottom: 20),
               child: Column(
                 children: [
+                  DotsIndicator(
+                    dotsCount: data.length,
+
+                    position: pageNumber.toDouble(),
+                    decorator: DotsDecorator(
+                      activeColor: Colors.orange,
+                      color: Colors.white,
+                      spacing: const EdgeInsets.all(10.0),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 30.0),
                     child: Row(
@@ -70,8 +89,8 @@ class _OnboardScreenState extends State<OnboardScreen> {
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(color: Colors.white, width: 1)),
+                                  border: Border.all(
+                                      color: Colors.white, width: 1)),
                               child: Center(
                                 child: Text(
                                   "Log In",
