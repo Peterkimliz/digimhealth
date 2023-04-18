@@ -38,7 +38,10 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    child: backButton(icon: Icons.arrow_back),
+                    child: commonWidget(icon: Icons.arrow_back,
+                        onPressed: () {
+                  Get.back();
+                  }),
                     left: 10,
                     top: 5,
                   ),

@@ -174,7 +174,7 @@ successSheduleDialog(context, title) {
                       callback: () {
                         Get.to(() => Home());
                       },
-                      title: "View Appointment"),
+                      title: "Cancel"),
                   Spacer(),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,

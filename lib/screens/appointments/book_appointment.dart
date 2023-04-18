@@ -26,7 +26,12 @@ class BookAppointment extends StatelessWidget {
         elevation: 0.2,
         title: MajorTitle(title: "Book Appointment", color: Colors.black),
         backgroundColor: Colors.white,
-        leading: backButton(icon: Icons.arrow_back),
+        leading: commonWidget(
+            icon: Icons.arrow_back,
+            onPressed: () {
+              Get.back();
+            }
+            ),
       ),
       body: SingleChildScrollView(
         child: Padding(

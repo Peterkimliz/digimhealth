@@ -4,9 +4,7 @@ import 'package:digimhealth/screens/profile/components/profile_image.dart';
 import 'package:digimhealth/screens/profile/components/profile_select_widget.dart';
 import 'package:digimhealth/widgets/minor_title.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import '../../widgets/back_button.dart';
 import '../../widgets/custom_button.dart';
@@ -22,7 +20,11 @@ class ProfileSetup extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
-        leading: backButton(icon: Icons.arrow_back),
+        leading: commonWidget(
+            icon: Icons.arrow_back,
+            onPressed: () {
+              Get.back();
+            }),
       ),
       body: SingleChildScrollView(
         child: Padding(

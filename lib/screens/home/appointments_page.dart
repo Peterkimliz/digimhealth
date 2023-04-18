@@ -1,6 +1,7 @@
 import 'package:digimhealth/controllers/appointment_controler.dart';
 import 'package:digimhealth/screens/appointments/reshedule_cancel_appointment.dart';
 import 'package:digimhealth/screens/doctor/doctor_review.dart';
+import 'package:digimhealth/screens/doctor/doctors.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:digimhealth/widgets/back_button.dart';
 import 'package:digimhealth/widgets/major_title.dart';
@@ -25,7 +26,11 @@ class AppointmentsPage extends StatelessWidget {
         backgroundColor: Colors.white,
         title: MajorTitle(title: "Appointments", color: Colors.black),
         actions: [
-          backButton(icon: Icons.add),
+          commonWidget(
+              icon: Icons.add,
+              onPressed: () {
+                Get.to(() => AllDoctors());
+              }),
         ],
       ),
       body: Column(

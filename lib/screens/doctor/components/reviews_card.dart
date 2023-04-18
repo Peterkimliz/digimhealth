@@ -29,7 +29,7 @@ Widget reviewsCard(){
               color: Colors.black,
               size: 17,
             ),
-            SizedBox(width: 10),
+          Spacer(),
             Container(
               padding:
               EdgeInsets.symmetric(horizontal: 15, vertical: 3),

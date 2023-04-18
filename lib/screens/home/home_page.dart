@@ -3,11 +3,14 @@ import 'package:digimhealth/screens/doctor/all_clinics.dart';
 import 'package:digimhealth/screens/doctor/doctor_profile.dart';
 import 'package:digimhealth/screens/doctor/doctors.dart';
 import 'package:digimhealth/utils/styles.dart';
+import 'package:digimhealth/widgets/back_button.dart';
 import 'package:digimhealth/widgets/clinic_card.dart';
 import 'package:digimhealth/widgets/major_title.dart';
 import 'package:digimhealth/widgets/minor_title.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../notifications/notifications.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -63,21 +66,12 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                       Spacer(),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 1,
-                                  offset: Offset(1, 1),
-                                  color: Colors.grey)
-                            ]),
-                        child: Icon(
-                          Icons.notifications_none_outlined,
-                          color: Styles.mainColor,
+                      commonWidget(
+                        icon: Icons.notifications_none_outlined,
+                        onPressed:()=> Get.to(
+                          () => Notifications(),
                         ),
+                        color: Styles.mainColor,
                       )
                     ],
                   ),

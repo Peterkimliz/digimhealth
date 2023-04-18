@@ -1,6 +1,8 @@
+import 'package:digimhealth/utils/functions.dart';
 import 'package:digimhealth/widgets/back_button.dart';
 import 'package:digimhealth/widgets/major_title.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../utils/styles.dart';
 import '../../widgets/custom_button.dart';
@@ -13,7 +15,10 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: backButton(icon: Icons.arrow_back),
+        leading: commonWidget(icon: Icons.arrow_back,
+            onPressed: () {
+              Get.back();
+            }),
         title: MajorTitle(title: "Payment", color: Colors.black),
       ),
       body: Padding(
@@ -55,7 +60,10 @@ class PaymentPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 30),
-            customButton(callback: () {}, title: "Next"),
+            customButton(callback: () {
+              successSheduleDialog(context, "Appointment");
+
+            }, title: "Finish"),
           ],
         ),
       ),

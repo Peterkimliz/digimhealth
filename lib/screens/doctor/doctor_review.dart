@@ -17,7 +17,10 @@ class DoctorReview extends StatelessWidget {
         elevation: 0.2,
         title: MajorTitle(title: "Write a Review", color: Colors.black),
         backgroundColor: Colors.white,
-        leading: backButton(icon: Icons.arrow_back),
+        leading: commonWidget(icon: Icons.arrow_back,
+            onPressed: () {
+              Get.back();
+            }),
       ),
       body: SingleChildScrollView(
         child: Padding(

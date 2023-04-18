@@ -1,4 +1,5 @@
 import 'package:digimhealth/controllers/appointment_controler.dart';
+import 'package:digimhealth/screens/doctor/doctor_profile.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:digimhealth/widgets/major_title.dart';
 import 'package:digimhealth/widgets/minor_title.dart';
@@ -30,7 +31,11 @@ class AllDoctors extends StatelessWidget {
         elevation: 0.2,
         title: MajorTitle(title: "Doctors", color: Colors.black),
         backgroundColor: Colors.white,
-        leading: backButton(icon: Icons.arrow_back),
+        leading: commonWidget(
+            icon: Icons.arrow_back,
+            onPressed: () {
+              Get.back();
+            }),
       ),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
@@ -116,7 +121,9 @@ class AllDoctors extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(() => DoctorProfile());
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width * 0.7,
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
@@ -178,40 +185,44 @@ class AllDoctors extends StatelessWidget {
                             Row(
                               children: [
                                 Container(
-                                  padding: EdgeInsets.symmetric(vertical: 10,horizontal: 3),
-                                  decoration: BoxDecoration(
-                                    color: Colors.amber.withOpacity(0.3),
-                                    borderRadius: BorderRadius.circular(10)
-                                  ),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 10, horizontal: 3),
+                                    decoration: BoxDecoration(
+                                        color: Colors.amber.withOpacity(0.3),
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(Icons.star,
-                                        color: Colors.yellow, size: 18),
-                                    SizedBox(width: 5),
-                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        MinorTitle(
-                                            title: "4.8", color: Colors.black),
+                                        Icon(Icons.star,
+                                            color: Colors.yellow, size: 18),
                                         SizedBox(width: 5),
-                                        MinorTitle(
-                                            title: "(110)", color: Colors.grey),
+                                        Row(
+                                          children: [
+                                            MinorTitle(
+                                                title: "4.8",
+                                                color: Colors.black),
+                                            SizedBox(width: 5),
+                                            MinorTitle(
+                                                title: "(110)",
+                                                color: Colors.grey),
+                                          ],
+                                        ),
                                       ],
-                                    ),
-                                  ],
-                                )),
+                                    )),
                                 SizedBox(width: 10),
                                 Expanded(
                                   child: InkWell(
                                     onTap: () {
                                       Get.to(() => BookAppointment());
                                     },
-                                    child:Container(
+                                    child: Container(
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
                                           color: Styles.mainColor,
                                           borderRadius:
-                                          BorderRadius.circular(10)),
+                                              BorderRadius.circular(10)),
                                       child: Center(
                                         child: MajorTitle(
                                           title: "Book Now",
