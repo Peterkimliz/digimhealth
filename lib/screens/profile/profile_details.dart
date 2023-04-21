@@ -20,7 +20,10 @@ class ProfileDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: backButton(icon: Icons.arrow_back),
+        leading: commonWidget(icon: Icons.arrow_back,
+            onPressed: () {
+              Get.back();
+            }),
         title: MajorTitle(title: "Profile", color: Colors.black),
         actions: [
           IconButton(

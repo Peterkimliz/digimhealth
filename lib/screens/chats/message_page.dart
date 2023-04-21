@@ -15,10 +15,14 @@ class ChatPage extends StatelessWidget {
       appBar: AppBar(
         elevation: 0.5,
         titleSpacing: 0.0,
-        title: MajorTitle(
-          title: "Chats",
-          color: Colors.black,
-          size: 20,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: MajorTitle(
+            title: "Chats",
+            color: Colors.black,
+            size: 20,
+          ),
         ),
         backgroundColor: Colors.white,
       ),

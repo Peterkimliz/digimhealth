@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MinorTitle extends StatelessWidget {
   final String title;
-  double? size=14.0;
+  double? size=15.0;
   final Color color;
   final FontWeight ?fontWeight;
   int ? maxline=1;
@@ -17,6 +17,7 @@ class MinorTitle extends StatelessWidget {
         color: color,
         fontSize: size,
         fontWeight: fontWeight,
+        fontFamily: "RobotoLight",
         overflow: TextOverflow.ellipsis,
 
       ),

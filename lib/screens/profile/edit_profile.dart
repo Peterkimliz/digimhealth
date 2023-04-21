@@ -18,7 +18,10 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: backButton(icon: Icons.arrow_back),
+        leading: commonWidget(icon: Icons.arrow_back,
+            onPressed: () {
+              Get.back();
+            }),
         title: MajorTitle(title: "Edit Profile", color: Colors.black),
         actions: [
           IconButton(

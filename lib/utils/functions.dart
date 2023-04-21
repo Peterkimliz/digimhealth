@@ -4,6 +4,8 @@ import 'package:digimhealth/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../screens/appointments/appointment_details.dart';
+
 successCancelDialog(context) {
   return showDialog(
       context: context,
@@ -166,7 +168,12 @@ successSheduleDialog(context, title) {
                     ),
                   ),
                   Spacer(),
-                  customButton(callback: () {}, title: "View Appointment"),
+                  customButton(
+                      callback: () {
+                        Get.back();
+                        Get.to(() => AppointmentDetails());
+                      },
+                      title: "View Appointment"),
                   SizedBox(height: 10),
                   customButton(
                       color: Styles.mainColor.withOpacity(0.2),
@@ -174,7 +181,7 @@ successSheduleDialog(context, title) {
                       callback: () {
                         Get.to(() => Home());
                       },
-                      title: "View Appointment"),
+                      title: "Cancel"),
                   Spacer(),
                 ],
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,8 +194,7 @@ successSheduleDialog(context, title) {
 
 List<String> createTimeSlot(
     Duration startTime, Duration endTime, BuildContext context,
-    {Duration step = const Duration(minutes: 60)}
-    ) {
+    {Duration step = const Duration(minutes: 60)}) {
   var timeSlot = <String>[];
   var hourStartTime = startTime.inHours;
   var minuteStartTime = startTime.inMinutes.remainder(60);

@@ -1,6 +1,7 @@
 import 'package:digimhealth/widgets/clinic_card.dart';
 import 'package:digimhealth/widgets/major_title.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../widgets/back_button.dart';
 
@@ -15,7 +16,10 @@ class AllClinics extends StatelessWidget {
         elevation: 0.2,
         title: MajorTitle(title: "Clinics", color: Colors.black),
         backgroundColor: Colors.white,
-        leading: backButton(icon: Icons.arrow_back),
+        leading: commonWidget(icon: Icons.arrow_back,
+            onPressed: () {
+              Get.back();
+            }),
       ),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),

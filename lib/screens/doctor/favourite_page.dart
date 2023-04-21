@@ -1,4 +1,5 @@
 import 'package:digimhealth/screens/doctor/components/doctor_card.dart';
+import 'package:digimhealth/screens/doctor/doctor_profile.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,41 +29,49 @@ class FavouritePage extends StatelessWidget {
           itemCount: 20,
           shrinkWrap: true,
           itemBuilder: (context, index) {
-            return Container(
-              margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 1, offset: Offset(1, 1), color: Colors.grey)
-                  ]),
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    child: doctorCard(),
-                  ),
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: InkWell(
-                      onTap: () {},
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Styles.mainColor,
-                          borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(10),
-                              bottomLeft: Radius.circular(10)),
-                        ),
-                        child: Center(
-                          child: Icon(Icons.favorite, color: Colors.white),
+            return InkWell(
+              onTap: () {
+                Get.to(() => DoctorProfile());
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 1,
+                          offset: Offset(1, 1),
+                          color: Colors.grey)
+                    ]),
+                child: Stack(
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      child: doctorCard(),
+                    ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Styles.mainColor,
+                            borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10)),
+                          ),
+                          child: Center(
+                            child: Icon(Icons.favorite, color: Colors.white),
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             );
           }),
