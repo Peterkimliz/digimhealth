@@ -1,4 +1,4 @@
-const BASE_URL="https://digimhealth.herokuapp.com";
+const BASE_URL="https://digimhealth.herokuapp.com/api";
 
 const auth="${BASE_URL}/authentication";
 const signup="${auth}/create";

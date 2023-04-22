@@ -22,12 +22,15 @@ class DbBase {
           "Authorization": "Bearer ${token ?? ""}"
         };
       }
+
       var request = http.Request(method, Uri.parse(link));
       if (body != null) {
         request.body = json.encode(body);
       }
       request.headers.addAll(headers);
       http.StreamedResponse response = await request.send();
+      print(method);
+      print(link);
       return response.stream.bytesToString();
     } catch (e) {
       print(e);

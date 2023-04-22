@@ -38,10 +38,11 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   Positioned(
-                    child: commonWidget(icon: Icons.arrow_back,
+                    child: commonWidget(
+                        icon: Icons.arrow_back,
                         onPressed: () {
-                  Get.back();
-                  }),
+                          Get.back();
+                        }),
                     left: 10,
                     top: 5,
                   ),
@@ -65,16 +66,47 @@ class LoginPage extends StatelessWidget {
                 ],
               ),
               inputFields(
-                  title: "Email",
-                  icon: Icons.email,
-                  controller: authController.textEditingControllerEmail),
+                  widget: TextFormField(
+                keyboardType: TextInputType.emailAddress,
+                controller: authController.textEditingControllerEmail,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "email required ";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  iconColor: Styles.mainColor,
+                  hintText: "Email",
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: Styles.mainColor,
+                  ),
+                ),
+              )),
               SizedBox(height: 20),
               inputFields(
-                  title: "Password",
-                  icon: Icons.lock,
-                  isPassword: true,
-                  controller: authController.textEditingControllerEmail,
-                  isVisible: true),
+                  widget: TextFormField(
+                keyboardType: TextInputType.text,
+                obscureText: true,
+                controller: authController.textEditingControllerPassword,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return " password required";
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  iconColor: Styles.mainColor,
+                  hintText: "Password",
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Styles.mainColor,
+                  ),
+                ),
+              )),
               SizedBox(height: 5),
               Align(
                 child: Padding(
