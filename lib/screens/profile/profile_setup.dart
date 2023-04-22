@@ -1,21 +1,23 @@
 import 'package:digimhealth/controllers/UserController.dart';
-import 'package:digimhealth/screens/home/home.dart';
 import 'package:digimhealth/screens/profile/components/profile_image.dart';
 import 'package:digimhealth/screens/profile/components/profile_select_widget.dart';
+import 'package:digimhealth/widgets/loader.dart';
 import 'package:digimhealth/widgets/major_title.dart';
 import 'package:digimhealth/widgets/minor_title.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../widgets/back_button.dart';
 import '../../widgets/custom_button.dart';
 
 class ProfileSetup extends StatelessWidget {
-  ProfileSetup({Key? key}) : super(key: key);
+  final String uid;
+
+  ProfileSetup({Key? key, required this.uid}) : super(key: key);
   UserController userController = Get.find<UserController>();
 
   @override
   Widget build(BuildContext context) {
+    print(uid);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -23,11 +25,11 @@ class ProfileSetup extends StatelessWidget {
         elevation: 0.0,
         titleSpacing: 10,
         automaticallyImplyLeading: false,
-        title:MajorTitle(
+        title: MajorTitle(
           title: "Set up your profile",
           color: Colors.black,
           size: 20,
-        ) ,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -44,15 +46,35 @@ class ProfileSetup extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-          height: kBottomNavigationBarHeight * 1.2,
-          child: customButton(
-              callback: () {
-                Get.to(() => Home());
-              },
-              title: "Complete"),
-        ),
+        child: Obx(() => Container(
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              height: userController.updateLoad.value
+                  ? kBottomNavigationBarHeight * 1.5
+                  : kBottomNavigationBarHeight * 1.2,
+              child: userController.updateLoad.value
+                  ? Loader()
+                  : customButton(
+                      callback: () {
+                        if (userController.gender == "") {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(new SnackBar(
+                                  content: MinorTitle(
+                            title: "Select Gender",
+                            color: Colors.white,
+                          )));
+                        } else if (userController.age == "") {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(new SnackBar(
+                                  content: MinorTitle(
+                            title: "Select age group",
+                            color: Colors.white,
+                          )));
+                        } else {
+                          userController.updateUser(uid: uid);
+                        }
+                      },
+                      title: "Complete"),
+            )),
       ),
     );
   }

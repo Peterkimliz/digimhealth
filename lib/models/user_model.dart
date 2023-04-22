@@ -5,6 +5,7 @@ class UserModel {
   String? phone;
   String? dob;
   String? gender;
+  String? profileImage;
   String? age;
   String? type;
   bool? isVerified = false;
@@ -24,6 +25,7 @@ class UserModel {
       this.isPhoneVerified,
       this.isVerified,
       this.updatedAt,
+      this.profileImage,
       this.age});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -31,6 +33,8 @@ class UserModel {
         email: json["email"],
         username: json["username"],
         age: json["age"] == null ? null : json["age"],
+        profileImage:
+            json["profileImage"] == null ? null : json["profileImage"],
         phone: json["phone"],
         dob: json["dob"] == null ? null : json["dob"],
         gender: json["gender"] == null ? null : json["gender"],

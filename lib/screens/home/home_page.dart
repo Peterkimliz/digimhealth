@@ -1,3 +1,4 @@
+import 'package:digimhealth/controllers/authController.dart';
 import 'package:digimhealth/screens/appointments/book_appointment.dart';
 import 'package:digimhealth/screens/doctor/all_clinics.dart';
 import 'package:digimhealth/screens/doctor/doctor_profile.dart';
@@ -14,6 +15,7 @@ import '../notifications/notifications.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
+  AuthController authController = Get.find<AuthController>();
   List specialist = [
     "Any",
     "Trauma",
@@ -26,7 +28,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(()=>Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -46,15 +48,22 @@ class HomePage extends StatelessWidget {
                         margin: EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            image: DecorationImage(
-                                image: AssetImage("assets/images/doctor4.jpg"),
+                            image: authController
+                                .currentUser.value!.profileImage ==
+                                null
+                                ? DecorationImage(
+                                image: AssetImage("assets/images/profile.png"),
+                                fit: BoxFit.cover)
+                                : DecorationImage(
+                                image: NetworkImage(authController.currentUser.value!.profileImage!),
                                 fit: BoxFit.cover)),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           MajorTitle(
-                            title: "Hi Peter ,",
+                            title:
+                            "Hi ${authController.currentUser.value?.username!} ",
                             color: Colors.black,
                             size: 16,
                           ),
@@ -68,8 +77,8 @@ class HomePage extends StatelessWidget {
                       Spacer(),
                       commonWidget(
                         icon: Icons.notifications_none_outlined,
-                        onPressed:()=> Get.to(
-                          () => Notifications(),
+                        onPressed: () => Get.to(
+                              () => Notifications(),
                         ),
                         color: Styles.mainColor,
                       )
@@ -97,7 +106,7 @@ class HomePage extends StatelessWidget {
                           child: Container(
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
                             margin:
-                                EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                            EdgeInsets.only(right: 10, top: 10, bottom: 10),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -155,7 +164,7 @@ class HomePage extends StatelessWidget {
                             width: MediaQuery.of(context).size.width * 0.7,
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
                             margin:
-                                EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                            EdgeInsets.only(right: 10, top: 10, bottom: 10),
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -185,7 +194,7 @@ class HomePage extends StatelessWidget {
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
                                         children: [
                                           MajorTitle(
                                             title: "Dr .Tonia",
@@ -235,7 +244,7 @@ class HomePage extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Styles.mainColor,
                                         borderRadius:
-                                            BorderRadius.circular(10)),
+                                        BorderRadius.circular(10)),
                                     child: Center(
                                       child: MajorTitle(
                                         title: "Book Now",
@@ -288,6 +297,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ));
   }
 }

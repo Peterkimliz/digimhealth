@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "38774859351",
+    "project_id": "digimhealth",
+    "storage_bucket": "digimhealth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:38774859351:android:c0607136545d62c807e512",
+        "android_client_info": {
+          "package_name": "com.example.digimhealth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "38774859351-sa81nmn8kp6aj1u639fcf3e2d7av2qhg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjNSYPyeZMYDW6QOTfCZ3UkmVP1RGf99E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "38774859351-sa81nmn8kp6aj1u639fcf3e2d7av2qhg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

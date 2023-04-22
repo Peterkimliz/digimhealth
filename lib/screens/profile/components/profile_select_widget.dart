@@ -99,7 +99,7 @@ Widget profileSelectWidget(context){
                   maxTime: DateTime.now(), onChanged: (date) {
                     print('change $date');
                   }, onConfirm: (date) {
-                    userController.dob.value = date;
+                    userController.dob.value = "${DateFormat("dd/MM/yyyy").format(date)}";
                   }, currentTime: DateTime.now(), locale: LocaleType.en);
             },
             child: Container(
@@ -115,7 +115,7 @@ Widget profileSelectWidget(context){
                     return MinorTitle(
                         title: userController.dob.value == ""
                             ? "Select date of birth"
-                            : "${DateFormat("dd/MM/yyyy").format(userController.dob.value)}",
+                            :userController.dob.value,
                         color: Colors.black);
                   }),
                   Icon(
