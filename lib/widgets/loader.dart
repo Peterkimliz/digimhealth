@@ -29,7 +29,7 @@ class _LoaderState extends State<Loader> with SingleTickerProviderStateMixin {
         CurvedAnimation(
             parent: animationController,
             curve: Interval(0.0, 1.0, curve: Curves.linear)));
-    animation_radius_out = Tween<double>(begin: 0.0, end: 1.0).animate(
+    animation_radius_out = Tween<double>(begin: 0.75, end: 1.0).animate(
         CurvedAnimation(
             parent: animationController,
             curve: Interval(0.0, 0.25, curve: Curves.elasticIn)));

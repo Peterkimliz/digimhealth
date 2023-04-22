@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../screens/appointments/appointment_details.dart';
+import '../widgets/major_title.dart';
 
 successCancelDialog(context) {
   return showDialog(
@@ -190,6 +191,35 @@ successSheduleDialog(context, title) {
           );
         });
       });
+}
+showAlertDialog(BuildContext context, title) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: MajorTitle(
+          title: "Error Occurred",
+          color: Colors.black,
+        ),
+        content: Text(
+          title,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 14,
+            fontFamily: "RobotoRegular",
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: Text("OK"),
+            onPressed: () {
+              Get.back();
+            },
+          )
+        ],
+      );
+    },
+  );
 }
 
 List<String> createTimeSlot(

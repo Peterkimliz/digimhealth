@@ -2,6 +2,7 @@ import 'package:digimhealth/controllers/UserController.dart';
 import 'package:digimhealth/screens/home/home.dart';
 import 'package:digimhealth/screens/profile/components/profile_image.dart';
 import 'package:digimhealth/screens/profile/components/profile_select_widget.dart';
+import 'package:digimhealth/widgets/major_title.dart';
 import 'package:digimhealth/widgets/minor_title.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,11 +21,13 @@ class ProfileSetup extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0.0,
-        leading: commonWidget(
-            icon: Icons.arrow_back,
-            onPressed: () {
-              Get.back();
-            }),
+        titleSpacing: 10,
+        automaticallyImplyLeading: false,
+        title:MajorTitle(
+          title: "Set up your profile",
+          color: Colors.black,
+          size: 20,
+        ) ,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -32,20 +35,6 @@ class ProfileSetup extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
-              MinorTitle(
-                title: "Set up your profile",
-                color: Colors.black,
-                size: 22,
-              ),
-              SizedBox(height: 10),
-              MinorTitle(
-                title:
-                    "Update your profile to connect your doctor with better impression",
-                color: Colors.grey,
-                size: 18,
-                maxline: 2,
-              ),
               SizedBox(height: 15),
               profileImage(context),
               SizedBox(height: 15),

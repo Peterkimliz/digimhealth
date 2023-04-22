@@ -25,7 +25,7 @@ Widget profileSelectWidget(context){
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child:
-                  MinorTitle(title: "Gender", color: Colors.black),
+                  MinorTitle(title: "Gender", color: Colors.black,size: 17,),
                 )
               ],
             ),
@@ -85,7 +85,7 @@ Widget profileSelectWidget(context){
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: MinorTitle(
-                      title: "Date of birth", color: Colors.black),
+                      title: "Date of birth", color: Colors.black,size: 17,),
                 )
               ],
             ),
@@ -143,7 +143,7 @@ Widget profileSelectWidget(context){
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: MinorTitle(
-                      title: "Age range", color: Colors.black),
+                      title: "Age range", color: Colors.black,size: 17,),
                 )
               ],
             ),

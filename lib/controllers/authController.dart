@@ -1,7 +1,11 @@
 import 'package:digimhealth/models/user_model.dart';
+import 'package:digimhealth/screens/profile/profile_setup.dart';
 import 'package:digimhealth/service/auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../utils/functions.dart';
 
 class AuthController extends GetxController {
   TextEditingController textEditingControllerName = TextEditingController();
@@ -12,9 +16,9 @@ class AuthController extends GetxController {
   RxBool authUserLoad = RxBool(false);
   RxString errorMessage = RxString("");
 
-  createUser() async {
+  createUser(context) async {
     try {
-      authUserLoad.value=true;
+      authUserLoad.value = true;
       Map<String, dynamic> body = {
         "email": textEditingControllerEmail.text.trim(),
         "username": textEditingControllerName.text.trim(),
@@ -24,9 +28,15 @@ class AuthController extends GetxController {
       };
       var response = await Auth().createUser(body: body);
       print(response);
-      authUserLoad.value=false;
+      if (response["message"] != null) {
+        showAlertDialog(context, response["message"]);
+      } else {
+        Get.off(() => ProfileSetup());
+      }
+
+      authUserLoad.value = false;
     } catch (e) {
-      authUserLoad.value=false;
+      authUserLoad.value = false;
       print(e);
     }
   }
