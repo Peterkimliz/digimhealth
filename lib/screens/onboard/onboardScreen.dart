@@ -68,7 +68,6 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 children: [
                   DotsIndicator(
                     dotsCount: data.length,
-
                     position: pageNumber.toDouble(),
                     decorator: DotsDecorator(
                       activeColor: Colors.orange,
@@ -83,7 +82,9 @@ class _OnboardScreenState extends State<OnboardScreen> {
                         Expanded(
                           child: InkWell(
                             onTap: () {
-                              Get.to(() => LoginPage());
+                              Get.to(() => LoginPage(),
+                                  transition: Transition.zoom,
+                                  duration: Duration(milliseconds: 1000));
                             },
                             child: Container(
                               padding: EdgeInsets.all(10),
@@ -104,7 +105,9 @@ class _OnboardScreenState extends State<OnboardScreen> {
                         Expanded(
                             child: InkWell(
                           onTap: () {
-                            Get.to(() => Signup());
+                            Get.to(() => Signup(),
+                                transition: Transition.zoom,
+                                duration: Duration(milliseconds: 1000));
                           },
                           child: Container(
                             padding: EdgeInsets.all(10),

@@ -281,7 +281,7 @@ class Signup extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        Get.to(() => LoginPage());
+                        Get.to(() => LoginPage(),transition: Transition.leftToRightWithFade,duration: Duration(milliseconds: 1000));
                       },
                       child: MajorTitle(
                           title: "Sign In", color: Styles.mainColor, size: 20),

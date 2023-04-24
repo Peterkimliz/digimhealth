@@ -1,13 +1,13 @@
 import 'package:digimhealth/controllers/UserController.dart';
 import 'package:digimhealth/models/user_model.dart';
 import 'package:digimhealth/screens/profile/profile_setup.dart';
-
 import 'package:digimhealth/service/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../screens/home/home.dart';
 import '../utils/functions.dart';
 
 class AuthController extends GetxController {
@@ -100,5 +100,35 @@ class AuthController extends GetxController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? userType = sharedPreferences.getString("userType");
     return userType;
+  }
+
+  void loginUser({required BuildContext context}) async {
+    try {
+      authUserLoad.value = true;
+      Map<String, dynamic> body = {
+        "email": textEditingControllerEmail.text.trim(),
+        "password": textEditingControllerPassword.text.trim(),
+      };
+      var response = await Auth().loginUser(body: body);
+      print(response);
+      if (response["message"] != null) {
+        showAlertDialog(context, response["message"]);
+      } else {
+        UserModel userModel = UserModel.fromJson(response["user"]);
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.setString("accessToken", response["token"]);
+        sharedPreferences.setString("userId", userModel.id!);
+        sharedPreferences.setString("userType", userModel.type!);
+        currentUser.value = userModel;
+        clearInputs();
+        Get.off(() => Home());
+      }
+
+      authUserLoad.value = false;
+    } catch (e) {
+      authUserLoad.value = false;
+      print(e);
+    }
   }
 }
