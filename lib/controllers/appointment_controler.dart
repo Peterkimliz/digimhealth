@@ -1,15 +1,15 @@
+import 'package:digimhealth/models/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppointmentController extends GetxController
     with SingleGetTickerProviderMixin {
   late TabController tabController;
-  RxInt selectedCategory = RxInt(0);
-  RxInt selectedAppointmentType=RxInt(0);
-  RxString cancelValue=RxString("");
-  RxString resheduleValue=RxString("");
-  RxString selectedHour=RxString("");
-
+  // RxInt selectedAppointmentType = RxInt(0);
+  RxString cancelValue = RxString("");
+  RxString resheduleValue = RxString("");
+  RxString selectedHour = RxString("");
+  Rxn<CategoryModel> selectedCategory = Rxn(null);
 
   @override
   void onInit() {

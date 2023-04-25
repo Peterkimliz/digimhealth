@@ -40,12 +40,12 @@ class UserController extends GetxController {
   TextEditingController textEditingControllerDob = TextEditingController();
   TextEditingController textEditingControllerage = TextEditingController();
 
-  initializeTextEditingControllers() {
-    textEditingControllerGender.text = "Male";
-    textEditingControllerphone.text = "07820167894";
-    textEditingControllername.text = "John doe";
-    textEditingControllerDob.text = "12/02/1900";
-    textEditingControllerage.text = "18-25";
+  initializeTextEditingControllers(UserModel userModel) {
+    textEditingControllerGender.text = userModel.gender ?? "";
+    textEditingControllerphone.text = userModel.phone ?? "";
+    textEditingControllername.text = userModel.username ?? "";
+    textEditingControllerDob.text = userModel.dob ?? "";
+    textEditingControllerage.text = userModel.age ?? "";
   }
 
   Future pickImage(type) async {
@@ -121,7 +121,6 @@ class UserController extends GetxController {
   }
 
   getUserById(String uid) async {
-
     try {
       loadingUserById.value = true;
       var response = await User().getUserById(uid: uid);

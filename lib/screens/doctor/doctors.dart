@@ -1,4 +1,6 @@
 import 'package:digimhealth/controllers/appointment_controler.dart';
+import 'package:digimhealth/controllers/home_controller.dart';
+import 'package:digimhealth/models/category_model.dart';
 import 'package:digimhealth/screens/doctor/doctor_profile.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:digimhealth/widgets/major_title.dart';
@@ -13,15 +15,7 @@ class AllDoctors extends StatelessWidget {
   AllDoctors({Key? key}) : super(key: key);
   AppointmentController appointmentController =
       Get.find<AppointmentController>();
-  List specialist = [
-    "Any",
-    "Trauma",
-    "Depression/Anxiety",
-    "Marriage/family",
-    "Loss/Grief",
-    "Addiction/Drugs",
-    "Lgbtq"
-  ];
+  HomeController homeController = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -70,24 +64,26 @@ class AllDoctors extends StatelessWidget {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.09,
-                child: ListView.builder(
-                    itemCount: specialist.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          appointmentController.selectedCategory.value = index;
-                        },
-                        child: Obx(() {
-                          return Container(
+                child: Obx(() {
+                  return ListView.builder(
+                      itemCount: homeController.categories.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        CategoryModel categoryModel =
+                            homeController.categories.elementAt(index);
+                        return InkWell(
+                          onTap: () {
+                            appointmentController.selectedCategory.value = categoryModel;
+                          },
+                          child:Obx(()=>Container(
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
-                            margin:
-                                EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                            margin: EdgeInsets.only(
+                                right: 10, top: 10, bottom: 10),
                             decoration: BoxDecoration(
                                 color: appointmentController
-                                            .selectedCategory.value ==
-                                        index
+                                    .selectedCategory.value?.id ==
+                                    categoryModel.id
                                     ? Styles.mainColor
                                     : Colors.white,
                                 borderRadius: BorderRadius.circular(10),
@@ -99,19 +95,19 @@ class AllDoctors extends StatelessWidget {
                                 ]),
                             child: Center(
                               child: MinorTitle(
-                                title: specialist[index],
+                                title: categoryModel.name!,
                                 color: appointmentController
-                                            .selectedCategory.value ==
-                                        index
+                                    .selectedCategory.value?.id ==
+                                    categoryModel.id!
                                     ? Colors.white
                                     : Colors.black,
                                 size: 16,
                               ),
                             ),
-                          );
-                        }),
-                      );
-                    }),
+                          )),
+                        );
+                      });
+                }),
               ),
               SizedBox(height: 10),
               ListView.builder(

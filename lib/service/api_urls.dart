@@ -6,3 +6,6 @@ const signin="${auth}/signin";
 
 //user
 const user="${BASE_URL}/user";
+//category
+var category="${BASE_URL}/categories/all";
+
