@@ -1,3 +1,4 @@
+import 'package:digimhealth/screens/auth/doctor_login.dart';
 import 'package:digimhealth/screens/auth/login.dart';
 import 'package:digimhealth/screens/auth/sign-up.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_one.dart';
@@ -134,11 +135,18 @@ class _OnboardScreenState extends State<OnboardScreen> {
                         "Are you a doctor?",
                         style: TextStyle(color: Colors.white),
                       ),
-                      Text(
-                        "Get here!",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.white),
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => DoctorLogin(),
+                              transition: Transition.circularReveal,
+                              duration: Duration(milliseconds: 1000));
+                        },
+                        child: Text(
+                          "Get here!",
+                          style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.white),
+                        ),
                       ),
                     ],
                   )
