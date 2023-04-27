@@ -227,7 +227,7 @@ class Signup extends StatelessWidget {
                         : InkWell(
                             onTap: () {
                               if (authController.isValidated()) {
-                                authController.createUser(context);
+                                authController.createUser(context:context,type: "patient");
                               } else {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(new SnackBar(

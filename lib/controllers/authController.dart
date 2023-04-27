@@ -1,5 +1,6 @@
 import 'package:digimhealth/controllers/UserController.dart';
 import 'package:digimhealth/models/user_model.dart';
+import 'package:digimhealth/screens/doctor/doctor_profile_setup.dart';
 import 'package:digimhealth/screens/profile/profile_setup.dart';
 import 'package:digimhealth/service/auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +20,7 @@ class AuthController extends GetxController {
   RxBool authUserLoad = RxBool(false);
   RxString errorMessage = RxString("");
 
-  createUser(context) async {
+  createUser({required context, required type}) async {
     try {
       authUserLoad.value = true;
       Map<String, dynamic> body = {
@@ -27,7 +28,7 @@ class AuthController extends GetxController {
         "username": textEditingControllerName.text.trim(),
         "phone": textEditingControllerPhone.text.trim(),
         "password": textEditingControllerPassword.text.trim(),
-        "type": "patient"
+        "type": type
       };
       var response = await Auth().createUser(body: body);
       print(response);
@@ -41,7 +42,13 @@ class AuthController extends GetxController {
         sharedPreferences.setString("userId", userModel.id!);
         sharedPreferences.setString("userType", userModel.type!);
         clearInputs();
-        Get.off(() => ProfileSetup(uid: userModel.id!));
+        if (type == "doctor") {
+          Get.off(() => DoctorProfileSetUp(
+                id: userModel.id!,
+              ));
+        } else {
+          Get.off(() => ProfileSetup(uid: userModel.id!));
+        }
       }
 
       authUserLoad.value = false;
