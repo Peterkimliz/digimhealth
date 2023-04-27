@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:digimhealth/controllers/authController.dart';
+import 'package:digimhealth/models/category_model.dart';
 import 'package:digimhealth/models/user_model.dart';
 import 'package:digimhealth/screens/home/home.dart';
 import 'package:digimhealth/service/user.dart';
@@ -13,13 +14,21 @@ import 'package:image_picker/image_picker.dart';
 class UserController extends GetxController {
   final _storaRef = FirebaseStorage.instance;
   Rxn<File>? pickedImage = Rxn(null);
+  Rxn<File>? pickedFile = Rxn(null);
   RxString gender = RxString("");
   RxString dob = RxString("");
+  RxString country = RxString("");
+  RxString county = RxString("");
+  RxString subcounty = RxString("");
+
   RxBool updateLoad = RxBool(false);
   RxBool loadingUserById = RxBool(false);
   RxString age = RxString("");
   RxString profileImageDownloadUrl = RxString("");
+  RxList<CategoryModel> serviceOffered=RxList([]);
+  RxList<String> workingDays=RxList([]);
   List genders = ["Male", "Female"];
+  RxInt yearsOfExperience=RxInt(0);
   List<String> ageRnge = [
     "18 - 25",
     "26 - 33",
@@ -32,13 +41,24 @@ class UserController extends GetxController {
     "82 - 89",
     "90 - 97"
   ];
+  List<String> days = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
 
   TextEditingController textEditingControllername = TextEditingController();
   TextEditingController textEditingControlleremail = TextEditingController();
   TextEditingController textEditingControllerphone = TextEditingController();
   TextEditingController textEditingControllerGender = TextEditingController();
   TextEditingController textEditingControllerDob = TextEditingController();
+  TextEditingController textEditingControllerBio = TextEditingController();
   TextEditingController textEditingControllerage = TextEditingController();
+  TextEditingController textEditingControllerFee = TextEditingController();
 
   initializeTextEditingControllers(UserModel userModel) {
     textEditingControllerGender.text = userModel.gender ?? "";

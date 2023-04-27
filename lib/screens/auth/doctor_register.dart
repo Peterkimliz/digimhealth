@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../utils/styles.dart';
+import '../../widgets/loader.dart';
 
 class DoctorRegister extends StatelessWidget {
   DoctorRegister({Key? key}) : super(key: key) {
@@ -92,45 +93,52 @@ class DoctorRegister extends StatelessWidget {
                     SizedBox(height: 40),
                     Align(
                       alignment: Alignment.center,
-                      child: InkWell(
-                        onTap: () {
-                          if (authController.isValidated()) {
-                            authController.createUser(
-                                context: context, type: "doctor");
-                          } else {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(new SnackBar(
-                              content: MinorTitle(
-                                  title: authController.errorMessage.value,
-                                  color: Colors.white),
-                              backgroundColor: Colors.black,
-                            ));
-                          }
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(right: 20),
-                          height: 50,
-                          width: 150,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(colors: [
-                                Styles.mainColor,
-                                Styles.mainColor.withOpacity(0.8)
-                              ]),
-                              borderRadius: BorderRadius.circular(30),
-                              color: Styles.mainColor),
-                          child: Row(
-                            children: [
-                              SizedBox(width: 20),
-                              MajorTitle(title: "Sign up", color: Colors.white),
-                              SizedBox(width: 20),
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+                      child: Obx(() {
+                        return authController.authUserLoad.value
+                            ? Loader()
+                            : InkWell(
+                                onTap: () {
+                                  if (authController.isValidated()) {
+                                    authController.createUser(
+                                        context: context, type: "doctor");
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(new SnackBar(
+                                      content: MinorTitle(
+                                          title:
+                                              authController.errorMessage.value,
+                                          color: Colors.white),
+                                      backgroundColor: Colors.black,
+                                    ));
+                                  }
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 20),
+                                  height: 50,
+                                  width: 150,
+                                  decoration: BoxDecoration(
+                                      gradient: LinearGradient(colors: [
+                                        Styles.mainColor,
+                                        Styles.mainColor.withOpacity(0.8)
+                                      ]),
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: Styles.mainColor),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(width: 20),
+                                      MajorTitle(
+                                          title: "Sign up",
+                                          color: Colors.white),
+                                      SizedBox(width: 20),
+                                      Icon(
+                                        Icons.arrow_forward,
+                                        color: Colors.white,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                      }),
                     ),
                     SizedBox(height: 10),
                     Row(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../widgets/major_title.dart';
+import '../../widgets/major_title.dart';
 
 class FaqsPage extends StatelessWidget {
   FaqsPage({Key? key}) : super(key: key);

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:digimhealth/controllers/authController.dart';
 import 'package:digimhealth/screens/doctor/favourite_page.dart';
 import 'package:digimhealth/screens/profile/about_page.dart';
-import 'package:digimhealth/screens/profile/components/faqs_page.dart';
+import 'package:digimhealth/screens/profile/faqs_page.dart';
 import 'package:digimhealth/screens/profile/profile_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -139,7 +139,9 @@ class ProfilePage extends StatelessWidget {
                     title: "Log out",
                     icon: Icons.logout,
                     color: Colors.redAccent,
-                    onPressed: () {}),
+                    onPressed: () {
+                      authController.logout();
+                    }),
               ],
             ),
           ),

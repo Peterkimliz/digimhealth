@@ -1,6 +1,7 @@
 import 'package:digimhealth/controllers/UserController.dart';
 import 'package:digimhealth/models/user_model.dart';
 import 'package:digimhealth/screens/doctor/doctor_profile_setup.dart';
+import 'package:digimhealth/screens/onboard/onboardScreen.dart';
 import 'package:digimhealth/screens/profile/profile_setup.dart';
 import 'package:digimhealth/service/auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -137,5 +138,11 @@ class AuthController extends GetxController {
       authUserLoad.value = false;
       print(e);
     }
+  }
+
+  void logout() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.clear();
+    Get.off(() => OnboardScreen());
   }
 }
