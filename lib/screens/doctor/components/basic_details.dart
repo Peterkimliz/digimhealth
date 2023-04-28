@@ -4,6 +4,7 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:digimhealth/controllers/UserController.dart';
 import 'package:digimhealth/controllers/home_controller.dart';
 import 'package:digimhealth/utils/styles.dart';
+import 'package:digimhealth/widgets/loader.dart';
 import 'package:digimhealth/widgets/major_title.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -219,12 +220,14 @@ class BasicDetails extends StatelessWidget {
                 onTap: () async {
                   FilePickerResult? result =
                       await FilePicker.platform.pickFiles(
-                    allowedExtensions: ['pdf'],
+                    type: FileType.custom,
+                          allowedExtensions: ['pdf']
                   );
 
                   if (result != null && result.files.single.path != null) {
                     File file = File(result.files.single.path!);
-                    userController.pickedFile!.value=file;
+                    userController.pickedFile!.value = file;
+                    print("file is ${userController.pickedFile!.value!.path}");
                   }
                 },
                 child: Center(
@@ -249,12 +252,37 @@ class BasicDetails extends StatelessWidget {
                   ),
                 ),
               ),
+              SizedBox(height: 5),
+              Obx(() => Center(
+                child: MajorTitle(
+                    title: userController.pickedFile!.value != null
+                        ? userController.pickedFile!.value!.path.split('/').last
+                        : "",
+                    color: Colors.black),
+              )),
+
               SizedBox(
                 height: 25,
               ),
-              customButton(
-                  callback: () {},
-                  title: "Finish")
+              Obx(() {
+                return userController.updateLoad.value
+                    ? Center(child: Loader())
+                    : customButton(
+                        callback: () {
+                          if (userController.validateUserData() == true) {
+                            userController.updateDoctor(uid: id);
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(new SnackBar(
+                              content: MajorTitle(
+                                  title: "Please fill all the fields",
+                                  color: Colors.white),
+                              backgroundColor: Colors.black,
+                            ));
+                          }
+                        },
+                        title: "Finish");
+              })
             ],
           ),
         ),

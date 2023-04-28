@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../screens/doctor/doctor_verification_page.dart';
+
 class UserController extends GetxController {
   final _storaRef = FirebaseStorage.instance;
   Rxn<File>? pickedImage = Rxn(null);
@@ -25,10 +27,11 @@ class UserController extends GetxController {
   RxBool loadingUserById = RxBool(false);
   RxString age = RxString("");
   RxString profileImageDownloadUrl = RxString("");
-  RxList<CategoryModel> serviceOffered=RxList([]);
-  RxList<String> workingDays=RxList([]);
+  RxString certDownloadUrl = RxString("");
+  RxList<CategoryModel> serviceOffered = RxList([]);
+  RxList<String> workingDays = RxList([]);
   List genders = ["Male", "Female"];
-  RxInt yearsOfExperience=RxInt(0);
+  RxInt yearsOfExperience = RxInt(0);
   List<String> ageRnge = [
     "18 - 25",
     "26 - 33",
@@ -114,31 +117,7 @@ class UserController extends GetxController {
     }
   }
 
-  uploadImageToFirebaseStorage(uid) async {
-    try {
-      Reference reference = _storaRef.ref().child("profileImages").child(uid);
-      UploadTask uploadTask = reference.putFile(
-          pickedImage!.value!, SettableMetadata(contentType: "image/jpg"));
-      TaskSnapshot taskSnapshot = await uploadTask;
-      String url = await taskSnapshot.ref.getDownloadURL();
-      profileImageDownloadUrl.value = url;
-    } catch (e) {
-      print(e);
-    }
-  }
 
-  clearinputs() {
-    textEditingControllerGender.clear();
-    textEditingControllerDob.clear();
-    textEditingControllername.clear();
-    textEditingControllerphone.clear();
-    textEditingControllerage.clear();
-    textEditingControlleremail.clear();
-    age.value = "";
-    gender.value = "";
-    pickedImage?.value = null;
-    profileImageDownloadUrl.value = "";
-  }
 
   getUserById(String uid) async {
     try {
@@ -159,4 +138,117 @@ class UserController extends GetxController {
       print("error is${e}");
     }
   }
+
+  void updateDoctor({required uid}) async {
+    try {
+      updateLoad.value = true;
+      if (pickedImage?.value != null) {
+        await uploadImageToFirebaseStorage(uid);
+      }
+      if (pickedFile?.value != null) {
+        await uploadFile(uid);
+      }
+      Map<String, dynamic> body = {
+        if (textEditingControllername.text.isNotEmpty)
+          "username": textEditingControllername.text,
+        if (textEditingControllerphone.text.isNotEmpty)
+          "phone": textEditingControllerphone.text,
+        "dob": dob.value,
+        "gender": gender.value,
+        "age": age.value,
+        if (profileImageDownloadUrl.value != "")
+          "profileImage": profileImageDownloadUrl.value,
+        if (certDownloadUrl.value != "") "certurl": certDownloadUrl.value,
+        if (textEditingControllerBio.text.isNotEmpty)
+          "bio": textEditingControllerBio.text,
+        "country": country.value,
+        "county": county.value,
+        "subcounty": subcounty.value,
+        "yearsOfExperience": yearsOfExperience.value,
+        if (textEditingControllerFee.text.isNotEmpty)
+          "consultationFee": textEditingControllerFee.text,
+        if (serviceOffered.isNotEmpty)
+          "category": serviceOffered.map((element) => element.id).toList(),
+        if (workingDays.isNotEmpty)
+          "workingDays": workingDays.map((element) => element).toList(),
+      };
+
+      var response = await User().updateUser(body: body, uid: uid);
+      if (response != null) {
+        UserModel userModel = UserModel.fromJson(response);
+        Get.find<AuthController>().currentUser.value = userModel;
+        clearinputs();
+        Get.off(() => DoctorVerificationPage());
+      }
+      updateLoad.value = false;
+
+      updateLoad.value = false;
+    } catch (e) {
+      updateLoad.value = false;
+      print(e);
+    }
+  }
+
+  uploadImageToFirebaseStorage(uid) async {
+    try {
+      Reference reference = _storaRef.ref().child("profileImages").child(uid);
+      UploadTask uploadTask = reference.putFile(
+          pickedImage!.value!, SettableMetadata(contentType: "image/jpg"));
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String url = await taskSnapshot.ref.getDownloadURL();
+      profileImageDownloadUrl.value = url;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  uploadFile(String uid) async {
+    try {
+      Reference reference = _storaRef.ref().child("documents").child(uid);
+      UploadTask uploadTask = reference.putFile(pickedFile!.value!);
+      TaskSnapshot taskSnapshot = await uploadTask;
+      String downloadURL = await taskSnapshot.ref.getDownloadURL();
+      certDownloadUrl.value = downloadURL;
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  bool validateUserData() {
+    if (workingDays.isEmpty ||
+        serviceOffered.isEmpty ||
+        country.value.isEmpty ||
+        county.value.isEmpty ||
+        subcounty.value.isEmpty ||
+        pickedFile!.value == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  clearinputs() {
+    textEditingControllerGender.clear();
+    textEditingControllerDob.clear();
+    textEditingControllername.clear();
+    textEditingControllerphone.clear();
+    textEditingControllerage.clear();
+    textEditingControlleremail.clear();
+    textEditingControllerBio.clear();
+    textEditingControllerFee.clear();
+    pickedFile!.value=null;
+    certDownloadUrl.value="";
+    workingDays.clear();
+    serviceOffered.clear();
+    county.value="";
+    subcounty.value="";
+    country.value="";
+    yearsOfExperience.value=0;
+    age.value = "";
+    gender.value = "";
+    pickedImage?.value = null;
+    profileImageDownloadUrl.value = "";
+  }
+
+
 }

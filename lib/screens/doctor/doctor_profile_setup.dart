@@ -64,6 +64,7 @@ class DoctorProfileSetUp extends StatelessWidget {
                 ),
                 SizedBox(height: 3),
                 TextFormField(
+                  keyboardType: TextInputType.number,
                   controller: userController.textEditingControllerFee,
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   decoration: InputDecoration(
