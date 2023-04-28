@@ -1,3 +1,5 @@
+import 'dart:math';
+
 class UserModel {
   String? id;
   String? email;
@@ -10,6 +12,16 @@ class UserModel {
   String? type;
   bool? isVerified = false;
   bool? isPhoneVerified = false;
+  String? bio;
+  String? country;
+  String? county;
+  String? subcounty;
+  int? yearsOfExperience;
+  int? consultationFee;
+  int? totalReviews;
+  int? totalRatings;
+  List<String>? workingDays;
+
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -26,7 +38,16 @@ class UserModel {
       this.isVerified,
       this.updatedAt,
       this.profileImage,
-      this.age});
+      this.age,
+      this.workingDays,
+      this.subcounty,
+      this.county,
+      this.country,
+      this.yearsOfExperience,
+      this.bio,
+      this.consultationFee,
+      this.totalRatings,
+      this.totalReviews});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
@@ -38,6 +59,15 @@ class UserModel {
         phone: json["phone"],
         dob: json["dob"] == null ? null : json["dob"],
         gender: json["gender"] == null ? null : json["gender"],
+        bio: json["bio"] == null ? null : json["bio"],
+        country: json["country"] == null ? null : json["country"],
+        county: json["county"] == null ? null : json["county"],
+        subcounty: json["subcounty"] == null ? null : json["subcounty"],
+        yearsOfExperience: json["yearsOfExperience"] ,
+        consultationFee: json["consultationFee"],
+        totalReviews: json["totalReviews"] ,
+        totalRatings: json["totalRatings"],
+        workingDays: json["workingDays"] == null ? [] : List<String>.from(json["workingDays"].map((e)=>e)),
         type: json["type"],
         isVerified: json["isVerified"],
         isPhoneVerified: json["isPhoneVerified"],
