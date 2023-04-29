@@ -22,9 +22,11 @@ class UserController extends GetxController {
   RxString country = RxString("");
   RxString county = RxString("");
   RxString subcounty = RxString("");
+  RxList<UserModel> searchedUsers = RxList([]);
 
   RxBool updateLoad = RxBool(false);
   RxBool loadingUserById = RxBool(false);
+  RxBool fetchingUsers = RxBool(false);
   RxString age = RxString("");
   RxString profileImageDownloadUrl = RxString("");
   RxString certDownloadUrl = RxString("");
@@ -117,8 +119,6 @@ class UserController extends GetxController {
     }
   }
 
-
-
   getUserById(String uid) async {
     try {
       loadingUserById.value = true;
@@ -139,7 +139,7 @@ class UserController extends GetxController {
     }
   }
 
-  void updateDoctor({required uid}) async {
+  void updateDoctor({required uid, required mailSend}) async {
     try {
       updateLoad.value = true;
       if (pickedImage?.value != null) {
@@ -149,6 +149,7 @@ class UserController extends GetxController {
         await uploadFile(uid);
       }
       Map<String, dynamic> body = {
+        "mailSend": mailSend,
         if (textEditingControllername.text.isNotEmpty)
           "username": textEditingControllername.text,
         if (textEditingControllerphone.text.isNotEmpty)
@@ -173,7 +174,7 @@ class UserController extends GetxController {
           "workingDays": workingDays.map((element) => element).toList(),
       };
 
-      var response = await User().updateUser(body: body, uid: uid);
+      var response = await User().updateDoctorDetails(body: body, uid: uid);
       if (response != null) {
         UserModel userModel = UserModel.fromJson(response);
         Get.find<AuthController>().currentUser.value = userModel;
@@ -227,6 +228,26 @@ class UserController extends GetxController {
     }
   }
 
+  searchDoctors({required category, required name,required pageNumber}) async {
+    try {
+      fetchingUsers.value = true;
+      var response = await User().searchDoctorDetails(category: category, pageNumber: pageNumber, name: name);
+      print("response${response}");
+      if (response != null) {
+        List users = response;
+        List<UserModel> jsonResponse =
+            users.map((e) => UserModel.fromJson(e)).toList();
+        searchedUsers.assignAll(jsonResponse);
+      } else {
+        searchedUsers.value = [];
+      }
+      fetchingUsers.value = false;
+    } catch (e) {
+      fetchingUsers.value = false;
+      print(e);
+    }
+  }
+
   clearinputs() {
     textEditingControllerGender.clear();
     textEditingControllerDob.clear();
@@ -236,19 +257,17 @@ class UserController extends GetxController {
     textEditingControlleremail.clear();
     textEditingControllerBio.clear();
     textEditingControllerFee.clear();
-    pickedFile!.value=null;
-    certDownloadUrl.value="";
+    pickedFile!.value = null;
+    certDownloadUrl.value = "";
     workingDays.clear();
     serviceOffered.clear();
-    county.value="";
-    subcounty.value="";
-    country.value="";
-    yearsOfExperience.value=0;
+    county.value = "";
+    subcounty.value = "";
+    country.value = "";
+    yearsOfExperience.value = 0;
     age.value = "";
     gender.value = "";
     pickedImage?.value = null;
     profileImageDownloadUrl.value = "";
   }
-
-
 }

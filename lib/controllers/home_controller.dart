@@ -1,3 +1,4 @@
+import 'package:digimhealth/controllers/UserController.dart';
 import 'package:digimhealth/models/category_model.dart';
 import 'package:digimhealth/screens/chats/message_page.dart';
 import 'package:digimhealth/screens/home/appointments_page.dart';
@@ -21,6 +22,7 @@ class HomeController extends GetxController {
 
   callinit() {
     getCategories();
+    Get.find<UserController>().searchDoctors(category: "all", name: "", pageNumber: 0);
   }
 
   getCategories() async {

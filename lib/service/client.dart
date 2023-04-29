@@ -17,11 +17,13 @@ class DbBase {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         String? token = sharedPreferences.getString("accessToken");
+        print(token);
         headers = {
           "Content-Type": "application/json",
           "Authorization": "Bearer ${token ?? ""}"
         };
       }
+
 
       var request = http.Request(method, Uri.parse(link));
       if (body != null) {

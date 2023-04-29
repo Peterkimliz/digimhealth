@@ -8,8 +8,8 @@ class UserModel {
   String? profileImage;
   String? age;
   String? type;
-  bool? isVerified = false;
-  bool? isPhoneVerified = false;
+  bool? isVerified ;
+  bool? isPhoneVerified ;
   String? bio;
   String? country;
   String? county;
@@ -67,7 +67,7 @@ class UserModel {
         totalRatings: json["totalRatings"],
         workingDays: json["workingDays"] == null ? [] : List<String>.from(json["workingDays"].map((e)=>e)),
         type: json["type"],
-        isVerified: json["isVerified"],
+        isVerified: json["verified"],
         isPhoneVerified: json["isPhoneVerified"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),

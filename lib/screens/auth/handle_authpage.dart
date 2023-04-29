@@ -1,4 +1,6 @@
 import 'package:digimhealth/controllers/authController.dart';
+import 'package:digimhealth/screens/doctor/doctor_home.dart';
+import 'package:digimhealth/screens/doctor/doctor_verification_page.dart';
 import 'package:digimhealth/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +15,8 @@ class HandleAuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (authController.getUserType() == null && authController.getUserId() == null) {
+    if (authController.getUserType() == null &&
+        authController.getUserId() == null) {
       return OnboardScreen();
     } else {
       return FutureBuilder(
@@ -29,8 +32,16 @@ class HandleAuthPage extends StatelessWidget {
             if (snapshot.hasData == true) {
               authController.currentUser.value = snapshot.data as UserModel?;
               authController.currentUser.refresh();
-
-              return Home();
+              if (authController.currentUser.value!.type == "doctor") {
+                print("hello${authController.currentUser.value!.isVerified}");
+                if (authController.currentUser.value!.isVerified == false) {
+                  return DoctorVerificationPage();
+                } else {
+                  return DoctorHome();
+                }
+              } else {
+                return Home();
+              }
             }
 
             return OnboardScreen();

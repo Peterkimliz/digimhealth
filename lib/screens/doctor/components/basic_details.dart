@@ -270,7 +270,7 @@ class BasicDetails extends StatelessWidget {
                     : customButton(
                         callback: () {
                           if (userController.validateUserData() == true) {
-                            userController.updateDoctor(uid: id);
+                            userController.updateDoctor(uid: id,mailSend: true);
                           } else {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(new SnackBar(

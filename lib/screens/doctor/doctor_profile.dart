@@ -1,3 +1,4 @@
+import 'package:digimhealth/controllers/UserController.dart';
 import 'package:digimhealth/screens/doctor/components/doctor_card.dart';
 import 'package:digimhealth/screens/doctor/components/reviews_card.dart';
 import 'package:digimhealth/screens/doctor/reviews_page.dart';
@@ -11,7 +12,8 @@ import '../../widgets/minor_title.dart';
 import '../appointments/book_appointment.dart';
 
 class DoctorProfile extends StatelessWidget {
-  const DoctorProfile({Key? key}) : super(key: key);
+  DoctorProfile({Key? key}) : super(key: key) ;
+
 
   //practice licence
 
@@ -22,10 +24,13 @@ class DoctorProfile extends StatelessWidget {
       appBar: AppBar(
         actions: [
           PopupMenuButton(
-            icon: Icon(Icons.more_vert,color: Colors.black,),
+              icon: Icon(
+                Icons.more_vert,
+                color: Colors.black,
+              ),
               itemBuilder: (context) {
-            return [PopupMenuItem(child: Container())];
-          })
+                return [PopupMenuItem(child: Container())];
+              })
         ],
         elevation: 0.2,
         title: MajorTitle(title: "Doctor", color: Colors.black),

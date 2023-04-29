@@ -6,6 +6,7 @@ const signin="${auth}/signin";
 
 //user
 const user="${BASE_URL}/user";
+const doctor="${user}/doctors";
 //category
 var category="${BASE_URL}/categories/all";
 
