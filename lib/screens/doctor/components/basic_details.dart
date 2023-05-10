@@ -78,7 +78,7 @@ class BasicDetails extends StatelessWidget {
                 onCountryChanged: (value) {
                   if (value != null) {
                     userController.country.value = value;
-                    print(userController.country.value);
+
                   }
                 },
                 onStateChanged: (value) {

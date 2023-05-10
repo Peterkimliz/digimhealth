@@ -35,7 +35,7 @@ Widget dobWidget({required context}){
               minTime: DateTime(1950, 1, 5),
               maxTime: DateTime.now(),
               onChanged: (date) {
-                print('change $date');
+
               },
               onConfirm: (date) {
                 userController.dob.value =

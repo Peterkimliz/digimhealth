@@ -52,7 +52,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   setState(() {
                     pageNumber = value;
                   });
-                  print(pageNumber);
+
                 },
                 controller: pageController,
                 itemCount: data.length,

@@ -19,7 +19,6 @@ class UserModel {
   int? totalReviews;
   int? totalRatings;
   List<String>? workingDays;
-
   DateTime? createdAt;
   DateTime? updatedAt;
 

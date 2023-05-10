@@ -29,13 +29,13 @@ class HomeController extends GetxController {
     try {
       loadingCategories.value = true;
       var response = await Category().getCategories();
-      print(response);
+
       if (response != null) {
         List rawData = response;
 
         List<CategoryModel> categoriesData= rawData.map((e) => CategoryModel.fromJson(e)).toList();
         categories.assignAll(categoriesData);
-        print("length is${categories.length}");
+
       } else {
         categories.value = [];
       }

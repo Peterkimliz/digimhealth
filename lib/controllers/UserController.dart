@@ -81,9 +81,9 @@ class UserController extends GetxController {
       if (image == null) return;
       final imageTemp = File(image.path);
       pickedImage?.value = imageTemp;
-      print("image${pickedImage!.value}");
+
     } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+
     }
   }
 
@@ -123,12 +123,12 @@ class UserController extends GetxController {
     try {
       loadingUserById.value = true;
       var response = await User().getUserById(uid: uid);
-      print(response);
+
       loadingUserById.value = false;
       if (response["message"] == null) {
         UserModel userModel = UserModel.fromJson(response);
         Get.find<AuthController>().currentUser.value = userModel;
-        print("object ${userModel.type}");
+
         return userModel;
       } else {
         return null;
@@ -232,7 +232,7 @@ class UserController extends GetxController {
     try {
       fetchingUsers.value = true;
       var response = await User().searchDoctorDetails(category: category, pageNumber: pageNumber, name: name);
-      print("response${response}");
+
       if (response != null) {
         List users = response;
         List<UserModel> jsonResponse =

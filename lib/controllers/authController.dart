@@ -24,15 +24,19 @@ class AuthController extends GetxController {
   createUser({required context, required type}) async {
     try {
       authUserLoad.value = true;
+      String? token= await generateFcmToken();
+
       Map<String, dynamic> body = {
         "email": textEditingControllerEmail.text.trim(),
         "username": textEditingControllerName.text.trim(),
         "phone": textEditingControllerPhone.text.trim(),
         "password": textEditingControllerPassword.text.trim(),
+        "fcmToken":token,
         "type": type
       };
+
       var response = await Auth().createUser(body: body);
-      print(response);
+
       if (response["message"] != null) {
         showAlertDialog(context, response["message"]);
       } else {
@@ -118,7 +122,6 @@ class AuthController extends GetxController {
         "password": textEditingControllerPassword.text.trim(),
       };
       var response = await Auth().loginUser(body: body);
-      print(response);
       if (response["message"] != null) {
         showAlertDialog(context, response["message"]);
       } else {
@@ -144,5 +147,10 @@ class AuthController extends GetxController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.clear();
     Get.off(() => OnboardScreen());
+  }
+
+  Future<String?> generateFcmToken()async{
+
+    return "";
   }
 }

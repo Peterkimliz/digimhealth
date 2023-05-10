@@ -33,7 +33,7 @@ class HandleAuthPage extends StatelessWidget {
               authController.currentUser.value = snapshot.data as UserModel?;
               authController.currentUser.refresh();
               if (authController.currentUser.value!.type == "doctor") {
-                print("hello${authController.currentUser.value!.isVerified}");
+
                 if (authController.currentUser.value!.isVerified == false) {
                   return DoctorVerificationPage();
                 } else {
