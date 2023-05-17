@@ -84,7 +84,7 @@ class BasicDetails extends StatelessWidget {
                 onStateChanged: (value) {
                   if (value != null) {
                     userController.county.value = value;
-                    print(userController.county.value);
+
                   }
                 },
                 onCityChanged: (value) {

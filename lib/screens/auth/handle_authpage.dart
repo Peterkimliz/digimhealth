@@ -15,6 +15,7 @@ class HandleAuthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     if (authController.getUserType() == null &&
         authController.getUserId() == null) {
       return OnboardScreen();

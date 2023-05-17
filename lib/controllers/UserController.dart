@@ -131,9 +131,11 @@ class UserController extends GetxController {
 
         return userModel;
       } else {
-        return null;
+        Get.find<AuthController>().logout()
+;        return null;
       }
     } catch (e) {
+      Get.find<AuthController>().logout();
       loadingUserById.value = false;
       print("error is${e}");
     }

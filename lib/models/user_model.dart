@@ -66,7 +66,7 @@ class UserModel {
         totalRatings: json["totalRatings"],
         workingDays: json["workingDays"] == null ? [] : List<String>.from(json["workingDays"].map((e)=>e)),
         type: json["type"],
-        isVerified: json["verified"],
+        isVerified: json["isVerified"],
         isPhoneVerified: json["isPhoneVerified"],
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),

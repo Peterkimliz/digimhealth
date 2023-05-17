@@ -17,6 +17,7 @@ class DbBase {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         String? token = sharedPreferences.getString("accessToken");
+
         headers = {
           "Content-Type": "application/json",
           "Authorization": "Bearer ${token ?? ""}"

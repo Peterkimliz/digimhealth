@@ -37,6 +37,7 @@ class AuthController extends GetxController {
 
       var response = await Auth().createUser(body: body);
 
+
       if (response["message"] != null) {
         showAlertDialog(context, response["message"]);
       } else {
@@ -145,7 +146,7 @@ class AuthController extends GetxController {
 
   void logout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.clear();
+    await sharedPreferences.clear();
     Get.off(() => OnboardScreen());
   }
 
