@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
+          splashColor: Colors.transparent,
+          shadowColor: Colors.transparent,
           appBarTheme:
               AppBarTheme(backgroundColor: Colors.white, elevation: 0.0)),
       title: "DigiMHealth",
