@@ -7,6 +7,9 @@ class AuthController extends GetxController with SingleGetTickerProviderMixin {
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPhone = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
+  RxBool hidePasword=RxBool(true);
+  RxString userType=RxString("patient");
+  List users=["patient","doctor"];
 
   late TabController tabController;
 
