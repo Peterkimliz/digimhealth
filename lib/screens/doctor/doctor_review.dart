@@ -59,7 +59,7 @@ class DoctorReview extends StatelessWidget {
                   color: Styles.mainColor,
                 ),
                 onRatingUpdate: (rating) {
-                  print(rating);
+
                 },
               ),
               SizedBox(height: 10),

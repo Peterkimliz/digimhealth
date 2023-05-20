@@ -18,7 +18,8 @@ class EditProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: commonWidget(icon: Icons.arrow_back,
+        leading: commonWidget(
+            icon: Icons.arrow_back,
             onPressed: () {
               Get.back();
             }),
@@ -53,7 +54,7 @@ class EditProfile extends StatelessWidget {
                       userController.textEditingControllerphone,
                   label: "Phone"),
               SizedBox(height: 10),
-              profileSelectWidget(context),
+              profileSelectWidget(context: context),
               SizedBox(height: 20),
             ],
           ),

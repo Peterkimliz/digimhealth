@@ -1,3 +1,7 @@
+
+import 'package:digimhealth/screens/auth/doctor_login.dart';
+import 'package:digimhealth/screens/auth/login.dart';
+import 'package:digimhealth/screens/auth/sign-up.dart';
 import 'package:digimhealth/screens/auth/login_landing.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_one.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_three.dart';
@@ -51,7 +55,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                   setState(() {
                     pageNumber = value;
                   });
-                  print(pageNumber);
+
                 },
                 controller: pageController,
                 itemCount: data.length,
@@ -60,6 +64,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 },
               ),
             ),
+
 
             Center(
                 child: SmoothPageIndicator(

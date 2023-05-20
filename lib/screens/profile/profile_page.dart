@@ -1,16 +1,20 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:digimhealth/controllers/authController.dart';
 import 'package:digimhealth/screens/doctor/favourite_page.dart';
 import 'package:digimhealth/screens/profile/about_page.dart';
-import 'package:digimhealth/screens/profile/components/faqs_page.dart';
+import 'package:digimhealth/screens/profile/faqs_page.dart';
 import 'package:digimhealth/screens/profile/profile_details.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/image_loader.dart';
 import '../../widgets/major_title.dart';
 import '../../widgets/minor_title.dart';
 import 'help_page.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  ProfilePage({Key? key}) : super(key: key);
+  AuthController authController = Get.find<AuthController>();
 
   @override
   Widget build(BuildContext context) {
@@ -26,33 +30,65 @@ class ProfilePage extends StatelessWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height: 60,
-                      width: 60,
-                      margin: EdgeInsets.only(right: 10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          image: DecorationImage(
-                              image: AssetImage("assets/images/doctor4.jpg"),
-                              fit: BoxFit.cover)),
-                    ),
+                    authController.currentUser.value!.profileImage == null
+                        ? Container(
+                            height: 60,
+                            width: 60,
+                            margin: EdgeInsets.only(right: 10),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage("assets/images/profile.png"),
+                                    fit: BoxFit.cover)))
+                        : Container(
+                            width: 60.0,
+                            height: 60.0,
+                            child: CachedNetworkImage(
+                              imageUrl:
+                                  "${authController.currentUser.value!.profileImage!}",
+                              imageBuilder: (context, imageProvider) =>
+                                  Container(
+                                      width: 60.0,
+                                      height: 60.0,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(15),
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover),
+                                      )),
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      imageLoader(width: 50.0, height: 50.0),
+                              errorWidget: (context, url, error) =>
+                                  Icon(Icons.error),
+                            ),
+                          ),
+                    SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         MajorTitle(
-                          title: "Peter Lojis",
+                          title:
+                              "${authController.currentUser.value?.username!}"
+                                  .capitalize!,
                           color: Colors.black,
                           size: 16,
                         ),
                         SizedBox(
                           height: 2,
                         ),
-                        MinorTitle(title: "0782015660", color: Colors.grey),
+                        MinorTitle(
+                          title: "${authController.currentUser.value?.phone}",
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w600,
+                        ),
                         SizedBox(
                           height: 2,
                         ),
                         MinorTitle(
-                            title: "peterlojis@gmail.com", color: Colors.grey),
+                            title: "${authController.currentUser.value?.email}",
+                            color: Colors.grey),
                       ],
                     ),
                   ],
@@ -62,7 +98,9 @@ class ProfilePage extends StatelessWidget {
                     title: "My Profile",
                     icon: Icons.person,
                     color: Colors.deepPurpleAccent,
-                    onPressed: () => Get.to(() => ProfileDetails())),
+                    onPressed: () => Get.to(() => ProfileDetails(),
+                        transition: Transition.rightToLeftWithFade,
+                        duration: Duration(milliseconds: 1000))),
                 profileItems(
                     title: "Payment Methods",
                     icon: Icons.wallet,
@@ -101,7 +139,9 @@ class ProfilePage extends StatelessWidget {
                     title: "Log out",
                     icon: Icons.logout,
                     color: Colors.redAccent,
-                    onPressed: () {}),
+                    onPressed: () {
+                      authController.logout();
+                    }),
               ],
             ),
           ),
@@ -135,6 +175,7 @@ class ProfilePage extends StatelessWidget {
             MinorTitle(
               title: title,
               color: Colors.grey,
+              fontWeight: FontWeight.w600,
               size: 17,
             ),
             Spacer(),
