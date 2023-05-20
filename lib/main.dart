@@ -24,6 +24,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
+
 class _MyAppState extends State<MyApp> {
   AuthController authController = Get.put<AuthController>(AuthController());
 
