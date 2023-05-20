@@ -1,7 +1,3 @@
-
-import 'package:digimhealth/screens/auth/doctor_login.dart';
-import 'package:digimhealth/screens/auth/login.dart';
-import 'package:digimhealth/screens/auth/sign-up.dart';
 import 'package:digimhealth/screens/auth/login_landing.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_one.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_three.dart';
@@ -114,88 +110,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                     size: 20,
                   ))),
             )
-            // Container(
-            //   color: Styles.mainColor,
-            //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5)
-            //       .copyWith(bottom: 20),
-            //   child: Column(
-            //     children: [
-            //       DotsIndicator(
-            //         dotsCount: data.length,
-            //
-            //         position: pageNumber.toDouble(),
-            //         decorator: DotsDecorator(
-            //           activeColor: Colors.orange,
-            //           color: Colors.white,
-            //           spacing: const EdgeInsets.all(10.0),
-            //         ),
-            //       ),
-            //       // Padding(
-            //       //   padding: const EdgeInsets.symmetric(horizontal: 30.0),
-            //       //   child: Row(
-            //       //     children: [
-            //       //       Expanded(
-            //       //         child: InkWell(
-            //       //           onTap: () {
-            //       //             Get.to(() => LoginPage());
-            //       //           },
-            //       //           child: Container(
-            //       //             padding: EdgeInsets.all(10),
-            //       //             decoration: BoxDecoration(
-            //       //                 borderRadius: BorderRadius.circular(10),
-            //       //                 border: Border.all(
-            //       //                     color: Colors.white, width: 1)),
-            //       //             child: Center(
-            //       //               child: Text(
-            //       //                 "Log In",
-            //       //                 style: TextStyle(color: Colors.white),
-            //       //               ),
-            //       //             ),
-            //       //           ),
-            //       //         ),
-            //       //       ),
-            //       //       SizedBox(width: 20),
-            //       //       Expanded(
-            //       //           child: InkWell(
-            //       //         onTap: () {
-            //       //           Get.to(() => Signup());
-            //       //         },
-            //       //         child: Container(
-            //       //           padding: EdgeInsets.all(10),
-            //       //           decoration: BoxDecoration(
-            //       //             color: Colors.white,
-            //       //             borderRadius: BorderRadius.circular(10),
-            //       //           ),
-            //       //           child: Center(
-            //       //             child: Text(
-            //       //               "Sign Up",
-            //       //               style: TextStyle(color: Styles.mainColor),
-            //       //             ),
-            //       //           ),
-            //       //         ),
-            //       //       ))
-            //       //     ],
-            //       //   ),
-            //       // ),
-            //       SizedBox(height: 30),
-            //       // Row(
-            //       //   mainAxisAlignment: MainAxisAlignment.center,
-            //       //   children: [
-            //       //     Text(
-            //       //       "Are you a doctor?",
-            //       //       style: TextStyle(color: Colors.white),
-            //       //     ),
-            //       //     Text(
-            //       //       "Get here!",
-            //       //       style: TextStyle(
-            //       //           decoration: TextDecoration.underline,
-            //       //           color: Colors.white),
-            //       //     ),
-            //       //   ],
-            //       // )
-            //     ],
-            //   ),
-            // )
+
           ],
         ),
       ),

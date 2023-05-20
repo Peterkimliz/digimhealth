@@ -8,7 +8,7 @@ Widget buildPassword(
     controller: controller,
     keyboardType: TextInputType.text,
     obscureText: obscured,
-    style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
+    style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
     decoration: InputDecoration(
       hintText:hint,
       filled: true,
@@ -18,7 +18,7 @@ Widget buildPassword(
               !Get.find<AuthController>().hidePasword.value;
         },
         child: Icon(
-          obscured==false? Icons.visibility_off : Icons.visibility,
+          obscured==true? Icons.visibility_off : Icons.visibility,
           color: Colors.grey,
         ),
       ),

@@ -7,6 +7,9 @@ import 'package:digimhealth/widgets/major_title.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/loader.dart';
+import '../../widgets/minor_title.dart';
+
 class LoginLanding extends StatelessWidget {
   LoginLanding({Key? key}) : super(key: key);
   AuthController authController = Get.find<AuthController>();
@@ -72,7 +75,7 @@ class LoginLanding extends StatelessWidget {
                                       .clear();
                                   authController.textEditingControllerEmail
                                       .clear();
-                                  authController.hidePasword.value =false;
+                                  authController.hidePasword.value = false;
                                 },
                                 tabs: [
                                   Tab(text: "Patient"),
@@ -103,10 +106,108 @@ class LoginLanding extends StatelessWidget {
                                       .textEditingControllerEmail),
                               SizedBox(height: 20),
                               Obx(() => buildPassword(
-                                hint: "Password",
+                                  hint: "Password",
                                   obscured: authController.hidePasword.value,
                                   controller: authController
                                       .textEditingControllerPassword)),
+                              SizedBox(height: 20),
+                              Row(
+                                children: [
+                                  MajorTitle(
+                                    title: "Dont have an account?",
+                                    color: Colors.black,
+                                    size: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 3,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      Get.to(() => Register(),
+                                          transition:
+                                              Transition.rightToLeftWithFade,
+                                          duration:
+                                              Duration(milliseconds: 1000));
+                                    },
+                                    child: MajorTitle(
+                                        title: "Register",
+                                        color: Styles.mainColor,
+                                        size: 20),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 20),
+                              Obx(() {
+                                return authController.authUserLoad.value
+                                    ? Center(child: Loader())
+                                    : ElevatedButton(
+                                        onPressed: () {
+                                          if (authController
+                                                  .textEditingControllerEmail
+                                                  .text
+                                                  .isNotEmpty &&
+                                              authController
+                                                  .textEditingControllerPassword
+                                                  .text
+                                                  .isNotEmpty) {
+                                            authController.loginUser(
+                                                context: context);
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(new SnackBar(
+                                              content: MinorTitle(
+                                                  title:
+                                                      "please fill out all fields",
+                                                  color: Colors.white),
+                                              backgroundColor: Colors.black54,
+                                            ));
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            elevation: 0.0,
+                                            primary: Styles.mainColor,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 50, vertical: 20),
+                                            textStyle: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold)),
+                                        child: Center(
+                                            child: MajorTitle(
+                                          title: "Login",
+                                          color: Colors.white,
+                                          size: 20,
+                                        )));
+                              })
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20.0, vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Center(
+                                child: MajorTitle(
+                                  title: "Specialist Login",
+                                  color: Styles.mainColor,
+                                  size: 25,
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              buildEmail(
+                                  controller: authController
+                                      .textEditingControllerEmail),
+                              SizedBox(height: 20),
+                              Obx(() => buildPassword(
+                                  hint: "Password",
+                                  controller: authController
+                                      .textEditingControllerPassword,
+                                  obscured: authController.hidePasword.value)),
                               SizedBox(height: 20),
                               Row(
                                 children: [
@@ -132,95 +233,51 @@ class LoginLanding extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(height: 20),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0.0,
-                                      primary: Styles.mainColor,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 50, vertical: 20),
-                                      textStyle: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold)),
-                                  child: Center(
-                                      child: MajorTitle(
-                                    title: "Login",
-                                    color: Colors.white,
-                                    size: 20,
-                                  )))
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20.0, vertical: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Center(
-                                child: MajorTitle(
-                                  title: "Specialist Login",
-                                  color: Styles.mainColor,
-                                  size: 25,
-                                ),
-                              ),
-                              SizedBox(height: 20),
-                              buildEmail(
-                                  controller: authController
-                                      .textEditingControllerEmail),
-                              SizedBox(height: 20),
-                             Obx(()=> buildPassword(
-                               hint: "Password",
-                                 controller: authController
-                                     .textEditingControllerPassword,
-                                 obscured: authController.hidePasword.value)),
-                              SizedBox(height: 20),
-                              Row(
-                                children: [
-                                  MajorTitle(
-                                    title: "Dont have an account?",
-                                    color: Colors.black,
-                                    size: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 3,
-                                  ),
-                                  InkWell(
-                                    onTap: () {
-                                      // Get.to(() => DoctorRegister(),
-                                      //     transition: Transition.rightToLeftWithFade,
-                                      //     duration: Duration(milliseconds: 1000));
-                                    },
-                                    child: MajorTitle(
-                                        title: "Register",
-                                        color: Styles.mainColor,
-                                        size: 20),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 20),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      elevation: 0.0,
-                                      primary: Styles.mainColor,
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 50, vertical: 20),
-                                      textStyle: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold)),
-                                  child: Center(
-                                      child: MajorTitle(
-                                    title: "Login",
-                                    color: Colors.white,
-                                    size: 20,
-                                  )))
+                              Obx(() {
+                                return authController.authUserLoad.value
+                                    ? Center(child: Loader())
+                                    : ElevatedButton(
+                                        onPressed: () {
+                                          if (authController
+                                                  .textEditingControllerEmail
+                                                  .text
+                                                  .isNotEmpty &&
+                                              authController
+                                                  .textEditingControllerPassword
+                                                  .text
+                                                  .isNotEmpty) {
+                                            authController.loginUser(
+                                                context: context);
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(new SnackBar(
+                                              content: MinorTitle(
+                                                  title:
+                                                      "please fill out all fields",
+                                                  color: Colors.white),
+                                              backgroundColor: Colors.black54,
+                                            ));
+                                          }
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                            ),
+                                            elevation: 0.0,
+                                            primary: Styles.mainColor,
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 50, vertical: 20),
+                                            textStyle: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.bold)),
+                                        child: Center(
+                                            child: MajorTitle(
+                                          title: "Login",
+                                          color: Colors.white,
+                                          size: 20,
+                                        )));
+                              })
                             ],
                           ),
                         ),

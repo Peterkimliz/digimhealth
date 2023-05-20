@@ -17,26 +17,31 @@ class AuthController extends GetxController with SingleGetTickerProviderMixin {
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPhone = TextEditingController();
   TextEditingController textEditingControllerPassword = TextEditingController();
+  TextEditingController textEditingControllerConPassword =
+      TextEditingController();
   Rxn<UserModel> currentUser = Rxn(null);
   RxBool authUserLoad = RxBool(false);
   RxString errorMessage = RxString("");
+  RxBool hidePasword = RxBool(true);
+  RxString userType = RxString("");
+  List users = ["patient", "doctor"];
+  late TabController tabController;
 
-  createUser({required context, required type}) async {
+  createUser({required context}) async {
     try {
       authUserLoad.value = true;
-      String? token= await generateFcmToken();
+      String? token = await generateFcmToken();
 
       Map<String, dynamic> body = {
         "email": textEditingControllerEmail.text.trim(),
         "username": textEditingControllerName.text.trim(),
         "phone": textEditingControllerPhone.text.trim(),
         "password": textEditingControllerPassword.text.trim(),
-        "fcmToken":token,
-        "type": type
+        "fcmToken": token,
+        "type": userType.value
       };
 
       var response = await Auth().createUser(body: body);
-
 
       if (response["message"] != null) {
         showAlertDialog(context, response["message"]);
@@ -48,7 +53,7 @@ class AuthController extends GetxController with SingleGetTickerProviderMixin {
         sharedPreferences.setString("userId", userModel.id!);
         sharedPreferences.setString("userType", userModel.type!);
         clearInputs();
-        if (type == "doctor") {
+        if (userType.value == "doctor") {
           Get.off(() => DoctorProfileSetUp(
                 id: userModel.id!,
               ));
@@ -68,11 +73,16 @@ class AuthController extends GetxController with SingleGetTickerProviderMixin {
     if (textEditingControllerPassword.text.isEmpty ||
         textEditingControllerPhone.text.isEmpty ||
         textEditingControllerEmail.text.isEmpty ||
-        textEditingControllerName.text.isEmpty) {
+        textEditingControllerName.text.isEmpty ||
+        userType.value == "") {
       errorMessage.value = "Please fill all the fields";
       return false;
     } else if (!isValidEmail(textEditingControllerEmail.text)) {
       errorMessage.value = "Enter a valid email";
+      return false;
+    } else if (textEditingControllerPassword.text.trim() !=
+        textEditingControllerConPassword.text.trim()) {
+      errorMessage.value = "Password mismatched";
       return false;
     } else {
       errorMessage.value = "";
@@ -150,14 +160,9 @@ class AuthController extends GetxController with SingleGetTickerProviderMixin {
     Get.off(() => OnboardScreen());
   }
 
-  Future<String?> generateFcmToken()async{
-
+  Future<String?> generateFcmToken() async {
     return "";
-  RxBool hidePasword=RxBool(true);
-  RxString userType=RxString("patient");
-  List users=["patient","doctor"];
-
-  late TabController tabController;
+  }
 
   @override
   void onInit() {
