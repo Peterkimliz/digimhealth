@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/home/home.dart';
 import '../utils/functions.dart';
 
-class AuthController extends GetxController {
+class AuthController extends GetxController with SingleGetTickerProviderMixin {
   TextEditingController textEditingControllerName = TextEditingController();
   TextEditingController textEditingControllerEmail = TextEditingController();
   TextEditingController textEditingControllerPhone = TextEditingController();
@@ -153,5 +153,15 @@ class AuthController extends GetxController {
   Future<String?> generateFcmToken()async{
 
     return "";
+  RxBool hidePasword=RxBool(true);
+  RxString userType=RxString("patient");
+  List users=["patient","doctor"];
+
+  late TabController tabController;
+
+  @override
+  void onInit() {
+    tabController = TabController(length: 2, vsync: this);
+    super.onInit();
   }
 }

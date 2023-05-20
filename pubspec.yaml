@@ -31,8 +31,7 @@ dependencies:
   file_picker: ^5.2.11
   flutter_local_notifications: ^14.0.0+1
   onesignal_flutter: ^3.5.1
-
-
+  smooth_page_indicator: ^1.1.0
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

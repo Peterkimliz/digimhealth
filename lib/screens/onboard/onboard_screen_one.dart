@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 
 
-
 class OnboardScreenOne extends StatelessWidget {
   OnboardScreenOne({Key? key}) : super(key: key);
 

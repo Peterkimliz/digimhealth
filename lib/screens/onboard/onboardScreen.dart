@@ -1,12 +1,15 @@
+
 import 'package:digimhealth/screens/auth/doctor_login.dart';
 import 'package:digimhealth/screens/auth/login.dart';
 import 'package:digimhealth/screens/auth/sign-up.dart';
+import 'package:digimhealth/screens/auth/login_landing.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_one.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_three.dart';
 import 'package:digimhealth/screens/onboard/onboard_screen_two.dart';
-import 'package:dots_indicator/dots_indicator.dart';
+import 'package:digimhealth/widgets/major_title.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../utils/styles.dart';
 
@@ -61,98 +64,138 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 },
               ),
             ),
+
+
+            Center(
+                child: SmoothPageIndicator(
+              controller: pageController,
+              // PageController
+              count: 3,
+              onDotClicked: (index) => pageController.animateToPage(index,
+                  duration: Duration(milliseconds: 500), curve: Curves.easeIn),
+              effect: WormEffect(
+                  spacing: 16,
+                  dotHeight: 10,
+                  dotColor: Colors.grey,
+                  activeDotColor: Styles.mainColor),
+            )),
+
             Container(
-              color: Styles.mainColor,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5)
-                  .copyWith(bottom: 20),
-              child: Column(
-                children: [
-                  DotsIndicator(
-                    dotsCount: data.length,
-                    position: pageNumber.toDouble(),
-                    decorator: DotsDecorator(
-                      activeColor: Colors.orange,
-                      color: Colors.white,
-                      spacing: const EdgeInsets.all(10.0),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              Get.to(() => LoginPage(),
-                                  transition: Transition.zoom,
-                                  duration: Duration(milliseconds: 1000));
-                            },
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: Colors.white, width: 1)),
-                              child: Center(
-                                child: Text(
-                                  "Log In",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 20),
-                        Expanded(
-                            child: InkWell(
-                          onTap: () {
-                            Get.to(() => Signup(),
-                                transition: Transition.zoom,
-                                duration: Duration(milliseconds: 1000));
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Sign Up",
-                                style: TextStyle(color: Styles.mainColor),
-                              ),
-                            ),
-                          ),
-                        ))
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Are you a doctor?",
-                        style: TextStyle(color: Colors.white),
+              height: 60,
+              margin: EdgeInsets.all(35),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: Styles.mainColor,
+                  borderRadius: BorderRadius.circular(15)),
+              child: ElevatedButton(
+                  onPressed: () {
+                    if (pageNumber == 2) {
+                      Get.to(() => LoginLanding());
+                    } else {
+                      pageController.nextPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeInOut);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => DoctorLogin(),
-                              transition: Transition.circularReveal,
-                              duration: Duration(milliseconds: 1000));
-                        },
-                        child: Text(
-                          "Get here!",
-                          style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
-              ),
+                      elevation: 0.0,
+                      primary: Styles.mainColor,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                      textStyle:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  child: Center(
+                      child: MajorTitle(
+                    title: pageNumber == 2 ? "Get Started " : "Next",
+                    color: Colors.white,
+                    size: 20,
+                  ))),
             )
+            // Container(
+            //   color: Styles.mainColor,
+            //   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5)
+            //       .copyWith(bottom: 20),
+            //   child: Column(
+            //     children: [
+            //       DotsIndicator(
+            //         dotsCount: data.length,
+            //
+            //         position: pageNumber.toDouble(),
+            //         decorator: DotsDecorator(
+            //           activeColor: Colors.orange,
+            //           color: Colors.white,
+            //           spacing: const EdgeInsets.all(10.0),
+            //         ),
+            //       ),
+            //       // Padding(
+            //       //   padding: const EdgeInsets.symmetric(horizontal: 30.0),
+            //       //   child: Row(
+            //       //     children: [
+            //       //       Expanded(
+            //       //         child: InkWell(
+            //       //           onTap: () {
+            //       //             Get.to(() => LoginPage());
+            //       //           },
+            //       //           child: Container(
+            //       //             padding: EdgeInsets.all(10),
+            //       //             decoration: BoxDecoration(
+            //       //                 borderRadius: BorderRadius.circular(10),
+            //       //                 border: Border.all(
+            //       //                     color: Colors.white, width: 1)),
+            //       //             child: Center(
+            //       //               child: Text(
+            //       //                 "Log In",
+            //       //                 style: TextStyle(color: Colors.white),
+            //       //               ),
+            //       //             ),
+            //       //           ),
+            //       //         ),
+            //       //       ),
+            //       //       SizedBox(width: 20),
+            //       //       Expanded(
+            //       //           child: InkWell(
+            //       //         onTap: () {
+            //       //           Get.to(() => Signup());
+            //       //         },
+            //       //         child: Container(
+            //       //           padding: EdgeInsets.all(10),
+            //       //           decoration: BoxDecoration(
+            //       //             color: Colors.white,
+            //       //             borderRadius: BorderRadius.circular(10),
+            //       //           ),
+            //       //           child: Center(
+            //       //             child: Text(
+            //       //               "Sign Up",
+            //       //               style: TextStyle(color: Styles.mainColor),
+            //       //             ),
+            //       //           ),
+            //       //         ),
+            //       //       ))
+            //       //     ],
+            //       //   ),
+            //       // ),
+            //       SizedBox(height: 30),
+            //       // Row(
+            //       //   mainAxisAlignment: MainAxisAlignment.center,
+            //       //   children: [
+            //       //     Text(
+            //       //       "Are you a doctor?",
+            //       //       style: TextStyle(color: Colors.white),
+            //       //     ),
+            //       //     Text(
+            //       //       "Get here!",
+            //       //       style: TextStyle(
+            //       //           decoration: TextDecoration.underline,
+            //       //           color: Colors.white),
+            //       //     ),
+            //       //   ],
+            //       // )
+            //     ],
+            //   ),
+            // )
           ],
         ),
       ),
