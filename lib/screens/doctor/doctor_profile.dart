@@ -1,4 +1,4 @@
-import 'package:digimhealth/controllers/UserController.dart';
+import 'package:digimhealth/models/user_model.dart';
 import 'package:digimhealth/screens/doctor/components/doctor_card.dart';
 import 'package:digimhealth/screens/doctor/components/reviews_card.dart';
 import 'package:digimhealth/screens/doctor/reviews_page.dart';
@@ -12,10 +12,11 @@ import '../../widgets/minor_title.dart';
 import '../appointments/book_appointment.dart';
 
 class DoctorProfile extends StatelessWidget {
-  DoctorProfile({Key? key}) : super(key: key) ;
+  final UserModel userModel;
 
+  DoctorProfile({Key? key, required this.userModel}) : super(key: key);
 
-  //practice licence
+//practice licence
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class DoctorProfile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              doctorCard(isVisible: false),
+              doctorCard(isVisible: false, userModel: userModel),
               SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -62,7 +63,11 @@ class DoctorProfile extends StatelessWidget {
                         icon: Icons.people,
                         subtitle: "Patients"),
                     profileItems(
-                        title: "10+", icon: Icons.work, subtitle: "Years.."),
+                        title: userModel.yearsOfExperience! >= 10
+                            ? "10+"
+                            : "${userModel.yearsOfExperience}",
+                        icon: Icons.work,
+                        subtitle: "Years.."),
                     profileItems(
                         title: "4.8", icon: Icons.star, subtitle: "Rating"),
                     profileItems(
@@ -80,7 +85,7 @@ class DoctorProfile extends StatelessWidget {
               ),
               SizedBox(height: 5),
               ReadMoreText(
-                "Lorem ipsum dolor sit amet consectetur. Nulla integer viverra non hendrerit facilisis accumsan praesent proin pharetra.Lorem ipsum dolor sit amet consectetur. Nulla integer viverra non hendrerit facilisis accumsan praesent proin pharetra.Lorem ipsum dolor sit amet consectetur. Nulla integer viverra non hendrerit facilisis accumsan praesent proin pharetra. ",
+                "${userModel.bio}",
                 style: TextStyle(color: Colors.black54),
                 moreStyle: TextStyle(
                     color: Styles.mainColor,

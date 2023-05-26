@@ -184,7 +184,7 @@ class AllDoctors extends StatelessWidget {
                                     .elementAt(index);
                                 return InkWell(
                                   onTap: () {
-                                    Get.to(() => DoctorProfile());
+                                    Get.to(() => DoctorProfile(userModel: usermodel,));
                                   },
                                   child: Container(
                                     width:

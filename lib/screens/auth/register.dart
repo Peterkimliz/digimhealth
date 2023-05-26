@@ -161,7 +161,7 @@ class Register extends StatelessWidget {
       keyboardType: TextInputType.phone,
       style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
       decoration: InputDecoration(
-        hintText: "Enter your Name",
+        hintText: "Enter your phone",
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(

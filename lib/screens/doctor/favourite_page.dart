@@ -1,9 +1,11 @@
+import 'package:digimhealth/models/user_model.dart';
 import 'package:digimhealth/screens/doctor/components/doctor_card.dart';
 import 'package:digimhealth/screens/doctor/doctor_profile.dart';
 import 'package:digimhealth/utils/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/authController.dart';
 import '../../widgets/major_title.dart';
 
 class FavouritePage extends StatelessWidget {
@@ -31,7 +33,9 @@ class FavouritePage extends StatelessWidget {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                Get.to(() => DoctorProfile());
+                Get.to(() => DoctorProfile(
+                      userModel: UserModel(),
+                    ));
               },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -49,7 +53,9 @@ class FavouritePage extends StatelessWidget {
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                      child: doctorCard(),
+                      child: doctorCard(
+                          userModel:
+                              Get.find<AuthController>().currentUser.value!),
                     ),
                     Positioned(
                       top: 0,

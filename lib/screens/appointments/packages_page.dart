@@ -1,3 +1,4 @@
+import 'package:digimhealth/controllers/appointment_controler.dart';
 import 'package:digimhealth/screens/appointments/payment_page.dart';
 import 'package:digimhealth/widgets/back_button.dart';
 import 'package:digimhealth/widgets/major_title.dart';
@@ -9,13 +10,17 @@ import '../../utils/styles.dart';
 import '../../widgets/custom_button.dart';
 
 class Packages extends StatelessWidget {
-  const Packages({Key? key}) : super(key: key);
+  AppointmentController appointmentController =
+      Get.find<AppointmentController>();
+
+  Packages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: commonWidget(icon: Icons.arrow_back,
+        leading: commonWidget(
+            icon: Icons.arrow_back,
             onPressed: () {
               Get.back();
             }),
@@ -27,24 +32,37 @@ class Packages extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 20),
-            MajorTitle(title: "Select Duration", color: Colors.black),
+            MajorTitle(title: "Select Duration (Min)", color: Colors.black),
             SizedBox(height: 10),
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(10),
+            DropdownButtonFormField(
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.grey.withOpacity(0.2),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.transparent, width: 0),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.transparent, width: 0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.transparent, width: 0),
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MinorTitle(title: "30 minutes", color: Colors.black),
-                  Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.black,
-                  )
-                ],
-              ),
+              items: appointmentController.durations
+                  .map(
+                    (e) => DropdownMenuItem(
+                  onTap: () {
+                    appointmentController.selectedDuration.value = int.parse(e);
+                  },
+                  value: e,
+                  child: Text(e),
+                ),
+              )
+                  .toList(),
+              onChanged: (value) {},
             ),
             SizedBox(height: 30),
             MajorTitle(title: "Select Package", color: Colors.black),
@@ -53,12 +71,12 @@ class Packages extends StatelessWidget {
               padding: EdgeInsets.all(10),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
                   boxShadow: [
-                    BoxShadow(offset: Offset(1, 1), blurRadius: 2, color: Colors.grey)
-                  ]
-              ),
+                    BoxShadow(
+                        offset: Offset(1, 1), blurRadius: 2, color: Colors.grey)
+                  ]),
               child: Row(
                 children: [
                   Container(
@@ -81,9 +99,10 @@ class Packages extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            MajorTitle(title: "Live Stream Meating", color: Colors.black),
+                            MajorTitle(
+                                title: "Live Stream Meating",
+                                color: Colors.black),
                             MajorTitle(title: "\$20", color: Colors.black),
-
                           ],
                         ),
                         SizedBox(height: 10),
@@ -97,7 +116,7 @@ class Packages extends StatelessWidget {
                     value: false,
                     groupValue: false,
                     onChanged: (value) {},
-                    fillColor:MaterialStateProperty.all(Styles.mainColor),
+                    fillColor: MaterialStateProperty.all(Styles.mainColor),
                   )
                 ],
               ),
@@ -110,9 +129,9 @@ class Packages extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15),
                   boxShadow: [
-                    BoxShadow(offset: Offset(1, 1), blurRadius: 2, color: Colors.grey)
-                  ]
-              ),
+                    BoxShadow(
+                        offset: Offset(1, 1), blurRadius: 2, color: Colors.grey)
+                  ]),
               child: Row(
                 children: [
                   Container(
@@ -135,14 +154,15 @@ class Packages extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            MajorTitle(title: "Offline Meeting ", color: Colors.black),
+                            MajorTitle(
+                                title: "Offline Meeting ", color: Colors.black),
                             MajorTitle(title: "\$20", color: Colors.black),
-
                           ],
                         ),
                         SizedBox(height: 10),
                         MinorTitle(
-                            title: "Meet impersonal with he doctor for 30 minutes",
+                            title:
+                                "Meet impersonal with he doctor for 30 minutes",
                             color: Colors.grey),
                       ],
                     ),
@@ -151,18 +171,19 @@ class Packages extends StatelessWidget {
                     value: false,
                     groupValue: false,
                     onChanged: (value) {},
-                    fillColor:MaterialStateProperty.all(Styles.mainColor),
+                    fillColor: MaterialStateProperty.all(Styles.mainColor),
                   )
                 ],
               ),
             ),
-           SizedBox(height: 50,),
+            SizedBox(
+              height: 50,
+            ),
             customButton(
                 callback: () {
                   Get.to(() => PaymentPage());
                 },
                 title: "Next"),
-
           ],
         ),
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/animation.dart';
 
 class Styles{
-
-  static final mainColor=Color(0xFF7165D6);
+  static final mainColor=Color(0xFFfb5320);
 }

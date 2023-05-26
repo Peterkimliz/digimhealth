@@ -12,8 +12,8 @@ import '../../widgets/major_title.dart';
 
 class BookAppointment extends StatelessWidget {
   BookAppointment({Key? key}) : super(key: key);
-  AppointmentController appointmentController =
-      Get.find<AppointmentController>();
+  AppointmentController appointmentController = Get.find<AppointmentController>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,7 @@ class BookAppointment extends StatelessWidget {
             icon: Icons.arrow_back,
             onPressed: () {
               Get.back();
-            }
-            ),
+            }),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -61,60 +60,88 @@ class BookAppointment extends StatelessWidget {
                   ),
                   value: [DateTime.now()],
                   onValueChanged: (dates) {
+                    appointmentController.selectedDate.value = dates.toString();
+                    print(dates);
                     // _dates = dates
                   },
                 ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              MajorTitle(
-                title: "Select Hour",
-                color: Colors.black,
-                size: 17,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Wrap(
-                runSpacing: 6.0,
-                spacing: 6.0,
-                children: createTimeSlot(Duration(hours: 8, minutes: 30),
-                        Duration(hours: 18, minutes: 30), context)
-                    .map((e) => Obx(() => InkWell(
-                          onTap: () {
-                            appointmentController.selectedHour.value = e;
-                          },
-                          child: Chip(
-                              backgroundColor:
-                                  appointmentController.selectedHour.value == e
-                                      ? Styles.mainColor
-                                      : Colors.white,
-                              shape: StadiumBorder(
-                                  side: BorderSide(
-                                width: 1,
-                                color: Styles.mainColor,
-                              )),
-                              label: Text(
-                                e,
-                                style: TextStyle(
-                                    color: appointmentController
-                                                .selectedHour.value ==
-                                            e
-                                        ? Colors.white
-                                        : Styles.mainColor),
-                              )),
-                        )))
-                    .toList(),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              customButton(
-                  callback: () {
-                    Get.to(() => Packages());
-                  },
-                  title: "Next")
+              Obx(() {
+                return appointmentController.selectedDate.value.isEmpty
+                    ? Text("")
+                    : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    MajorTitle(
+                      title: "Select Hour",
+                      color: Colors.black,
+                      size: 17,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Wrap(
+                      runSpacing: 6.0,
+                      spacing: 6.0,
+                      children: createTimeSlot(
+                          Duration(hours: 8, minutes: 30),
+                          Duration(hours: 18, minutes: 30),
+                          context)
+                          .map((e) =>
+                          Obx(() =>
+                              InkWell(
+                                onTap: () {
+                                  appointmentController
+                                      .selectedHour.value = e;
+                                },
+                                child: Chip(
+                                    backgroundColor: appointmentController
+                                        .selectedHour.value ==
+                                        e
+                                        ? Styles.mainColor
+                                        : Colors.white,
+                                    shape: StadiumBorder(
+                                        side: BorderSide(
+                                          width: 1,
+                                          color: Styles.mainColor,
+                                        )),
+                                    label: Text(
+                                      e,
+                                      style: TextStyle(
+                                          color: appointmentController
+                                              .selectedHour
+                                              .value ==
+                                              e
+                                              ? Colors.white
+                                              : Styles.mainColor),
+                                    )),
+                              )))
+                          .toList(),
+                    ),
+                  ],
+                );
+              }),
+              Obx(() {
+                return appointmentController.selectedDate.value.isEmpty ||
+                    appointmentController.selectedHour.value.isEmpty
+                    ? Text("")
+                    : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    customButton(
+                        callback: () {
+                          Get.to(() => Packages());
+                        },
+                        title: "Next")
+                  ],
+                );
+              })
             ],
           ),
         ),

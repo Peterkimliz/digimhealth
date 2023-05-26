@@ -1,3 +1,4 @@
+import 'package:digimhealth/controllers/authController.dart';
 import 'package:digimhealth/screens/chats/inbox_page.dart';
 import 'package:digimhealth/screens/doctor/components/doctor_card.dart';
 import 'package:digimhealth/widgets/back_button.dart';
@@ -27,7 +28,7 @@ class AppointmentDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              doctorCard(isVisible: false),
+              doctorCard(isVisible: false,userModel:Get.find<AuthController>().currentUser.value!),
               SizedBox(height: 20),
               MajorTitle(title: "Sheduled Apppointment", color: Colors.black),
               SizedBox(height: 20),
